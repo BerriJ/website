@@ -84,6 +84,6 @@ params:
     # option to specify your contact email in the footer
     email: Jonathan@Berrisch.biz
     # option to specify your linkedin profile in the footer
-    github: https://github.com/BerriJ
+    GitHub: https://github.com/BerriJ
     # option to specify the copyright in the footer
     copyright: Jonathan Berrisch - 2019
