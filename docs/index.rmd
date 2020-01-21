@@ -1,0 +1,8 @@
+---
+title: "Presentations"
+output: html_document
+---
+
+A Forecasting Study on Swedish Wine Sales [23-09.2019](http://www.berrisch.biz/sl.html)
+
+A Forecasting Study on Short Term Natural Gas Prices [22-01-2020](http://www.berrisch.biz/20200122_sitrep.html)
