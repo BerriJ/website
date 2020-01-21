@@ -86,6 +86,10 @@ To specify the margin of the first title h1
   background-color: #107500;
   color: white;
 }
+.rwe {
+  background-color: #005087;
+  color: white;
+}
 /* segue */
 .segue {
   text-align:center;
