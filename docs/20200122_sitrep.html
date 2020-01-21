@@ -60,8 +60,8 @@ class:
 
 # Data Overview
 
-<div id="htmlwidget-20bde3c123e90e4b879c" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-20bde3c123e90e4b879c">{"x":{"filter":"none","autoHideNavigation":true,"data":[["1","2","3","4","5","6","7","8"],["2019-10-31","2019-11-01","2019-11-02","2019-11-03","2019-11-04","2019-11-05","2019-11-06","2019-11-07"],[9.45,10.634,null,null,11.609,13.811,13.491,13.659],[9.863,10.981,null,null,12.038,14.237,13.998,14.147],[9.149,10.053,null,null,11.203,13.453,13.161,13.402],[11.723,13.374,null,null,14.483,16.162,15.962,15.925],[23.171,25.451,null,null,28.795,33.677,33.243,33.931],[9.425,9.425,null,null,11.306,13.15,13.168,13.39],[9.72,10.389,null,null,11.592,13.674,13.571,13.707],[10.354,11.308,null,null,12.503,14.325,14.008,14.165],[10.325,11.025,10.8,11.55,12.975,13.3,13.3,14.4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>CALC_DATE<\/th>\n      <th>ttf<\/th>\n      <th>ncg<\/th>\n      <th>peg<\/th>\n      <th>psv<\/th>\n      <th>zee<\/th>\n      <th>ztp<\/th>\n      <th>gpi<\/th>\n      <th>vtp<\/th>\n      <th>reg_133<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e34c953e2145ceaabe22" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e34c953e2145ceaabe22">{"x":{"filter":"none","autoHideNavigation":true,"data":[["1","2","3","4","5","6","7","8"],["2019-10-31","2019-11-01","2019-11-02","2019-11-03","2019-11-04","2019-11-05","2019-11-06","2019-11-07"],[9.45,10.634,null,null,11.609,13.811,13.491,13.659],[9.863,10.981,null,null,12.038,14.237,13.998,14.147],[9.149,10.053,null,null,11.203,13.453,13.161,13.402],[11.723,13.374,null,null,14.483,16.162,15.962,15.925],[23.171,25.451,null,null,28.795,33.677,33.243,33.931],[9.425,9.425,null,null,11.306,13.15,13.168,13.39],[9.72,10.389,null,null,11.592,13.674,13.571,13.707],[10.354,11.308,null,null,12.503,14.325,14.008,14.165],[10.325,11.025,10.8,11.55,12.975,13.3,13.3,14.4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>CALC_DATE<\/th>\n      <th>ttf<\/th>\n      <th>ncg<\/th>\n      <th>peg<\/th>\n      <th>psv<\/th>\n      <th>zee<\/th>\n      <th>ztp<\/th>\n      <th>gpi<\/th>\n      <th>vtp<\/th>\n      <th>reg_133<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -254,7 +254,7 @@ No estimation necessary.
 Prediction depends on `\(c\)` and `\(P\)` Lags:
 
 `\begin{align}
-\mathbb{E}(Y_t \mid \mathcal{I}_t) &amp;= c + \sum_{j=1}^p \phi_j Y_{t-j} \nonumber \\
+\mathbb{E}(Y_t \mid \mathcal{I}_t) &amp;= c + \sum_{j=1}^P \phi_j Y_{t-j} \nonumber \\
 \epsilon_t \sim \mathcal{N}(0,\,\sigma^{2})
 \end{align}`
 
@@ -280,20 +280,79 @@ Variance is assumed to be time dependend:
 
 # Estimation
 
-&lt;br&gt;
-
 The preceding models can be estimated with OLS. Hence, minimizing the SSR. In consequence, we obtain mean predictions.
 
 Mean predictions should be evaluated using the squared prediction error. We are using the RMSE here.
 
+$$ RMSE = \sqrt{\frac{1}{n}\sum_{t=1}^{T}{\Big(y_t - \hat{y_t}\Big)^2}}$$
 
-```r
-# data.frame(Model = c("Naive", "AR(1), AR(3), AR_ARCH"), c(3.0314,2.9621, 2.5642,  ))
-```
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Model &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; RMSE &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Naive &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.0314 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR(1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.9621 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR(3) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2.5642 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR(1)-ARCH(1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.0018 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR(3)-ARCH(1) &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.0912 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 
+---
 
-&lt;br&gt;
+# Outlook
 
+.pull-left[
+
+## Short Term:
+
+- Switching back to LEBA / Volume weighted price data
+
+- Easing the normality assumption:
+  - Assuming that the erorrs are from a skewed t distribution
+  - Estimating the models using maximum lieklihood
+  - Obtain median predictions
+  
+- Incorporating deterministic patterns
+  - Monday Dummy
+  - Year / Month / Week Lag
+
+]
+
+.pull-right[
+
+## Mid Term
+
+- Adding external regressors
+  - Fillings
+  - Temperature
+  - Demand
+- Calculating PnL's
+
+## Long Term
+
+- Using the knowledge for estimating ANN's
+
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
