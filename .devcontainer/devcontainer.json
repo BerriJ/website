@@ -1,0 +1,16 @@
+{
+    "name": "Website",
+    "image": "website:latest",
+    // "appPort": 1313,
+    "extensions": [
+        "streetsidesoftware.code-spell-checker",
+        "yzhang.markdown-all-in-one"
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/resources": true,
+        },
+        // Use zsh
+        "terminal.integrated.shell.linux": "/bin/zsh"
+    }
+}
