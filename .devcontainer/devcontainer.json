@@ -1,6 +1,6 @@
 {
     "name": "Website",
-    "image": "website:latest",
+    "dockerFile": "Dockerfile",
     // "appPort": 1313,
     "extensions": [
         "streetsidesoftware.code-spell-checker",
