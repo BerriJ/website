@@ -6,18 +6,17 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Sat, 05 Sep 2020 13:47:27 +0000</lastBuildDate>
+		<lastBuildDate>Wed, 09 Apr 2014 00:00:00 +0000</lastBuildDate>
 		<atom:link href="https://berrisch.biz/posts/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>Testpost</title>
-			<link>https://berrisch.biz/posts/bla/</link>
-			<pubDate>Sat, 05 Sep 2020 13:47:27 +0000</pubDate>
+			<title>First Post</title>
+			<link>https://berrisch.biz/posts/test/</link>
+			<pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
 			
-			<guid>https://berrisch.biz/posts/bla/</guid>
-			<description>Important Stuff $\beta$</description>
-			<content type="html"><![CDATA[<h1 id="important-stuff">Important Stuff</h1>
-<p>$\beta$</p>
+			<guid>https://berrisch.biz/posts/test/</guid>
+			<description>Coming Soon</description>
+			<content type="html"><![CDATA[<p>Coming Soon</p>
 ]]></content>
 		</item>
 		
