@@ -1,0 +1,24 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on Jonathan Berrisch</title>
+		<link>https://berrisch.biz/posts/</link>
+		<description>Recent content in Posts on Jonathan Berrisch</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+		<lastBuildDate>Wed, 09 Apr 2014 00:00:00 +0000</lastBuildDate>
+		<atom:link href="https://berrisch.biz/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>First Post</title>
+			<link>https://berrisch.biz/posts/test/</link>
+			<pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
+			
+			<guid>https://berrisch.biz/posts/test/</guid>
+			<description>Coming Soon</description>
+			<content type="html"><![CDATA[<p>Coming Soon</p>
+]]></content>
+		</item>
+		
+	</channel>
+</rss>
