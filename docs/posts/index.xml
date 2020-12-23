@@ -6,17 +6,47 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Wed, 09 Apr 2014 00:00:00 +0000</lastBuildDate>
+		<lastBuildDate>Wed, 23 Dec 2020 00:00:00 +0000</lastBuildDate>
 		<atom:link href="https://berrisch.biz/posts/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
-			<title>First Post</title>
-			<link>https://berrisch.biz/posts/test/</link>
-			<pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
+			<title>Pre-specified variables as default arguments in Rcpp(armadillo)</title>
+			<link>https://berrisch.biz/posts/2020_12_23_rcpp_defaults/</link>
+			<pubDate>Wed, 23 Dec 2020 00:00:00 +0000</pubDate>
 			
-			<guid>https://berrisch.biz/posts/test/</guid>
-			<description>Coming Soon</description>
-			<content type="html"><![CDATA[<p>Coming Soon</p>
+			<guid>https://berrisch.biz/posts/2020_12_23_rcpp_defaults/</guid>
+			<description>Lately, I&amp;rsquo;m using Rcpp and RcppArmadillo a lot to speed up the computational work of my current research project.
+I stumbled over a lot of problems which are easily solved in R but a pain to get working in C++ Armadillo. So I thought, I&amp;rsquo;d share some of my solutions.
+The first one is here. We want to create an R function f with argument y which defaults to 1:5:</description>
+			<content type="html"><![CDATA[<p>Lately, I&rsquo;m using <a href="https://dirk.eddelbuettel.com/code/rcpp.html">Rcpp</a> and <a href="https://dirk.eddelbuettel.com/code/rcpp.html">RcppArmadillo</a> a lot to speed up the computational work of my current research project.</p>
+<p>I stumbled over a lot of problems which are easily solved in R but a pain to get working in C++ Armadillo. So I thought, I&rsquo;d share some of my solutions.</p>
+<p>The first one is here. We want to create an R function <code>f</code> with argument <code>y</code> which defaults to <code>1:5</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-R" data-lang="R"><span class="n">f</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">){</span>
+    <span class="nf">return</span><span class="p">(</span><span class="m">2</span><span class="n">^y</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div><p>Straightforward in R right? Let&rsquo;s suppose we want to write this function using Rcpp(armadillo). I&rsquo;m allways using this header for my .cpp files:</p>
+<div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">// [[Rcpp::depends(RcppArmadillo)]]
+</span><span class="c1"></span><span class="cp">#include</span> <span class="cpf">&lt;RcppArmadillo.h&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">arma</span><span class="p">;</span>
+</code></pre></div><p>Intuitively I tried something like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++"><span class="c1">// [[Rcpp::export]]
+</span><span class="c1"></span><span class="n">vec</span> <span class="nf">f_cpp</span><span class="p">(</span><span class="k">const</span> <span class="n">vec</span> <span class="o">&amp;</span><span class="n">y</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)))</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">exp2</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>However, this does not work because <code>linspace</code> can&rsquo;t be executed by arma. You can think of the arguments section as the place where Rcpp translates the R object to C++ objects. Neither R nor Cpp code will be executed there. But here is the good news: you can construct empty vectors in Rcpp and just check inside the body if they are empty. That is, we can write our function like this:</p>
+<div class="highlight"><pre class="chroma"><code class="language-C++" data-lang="C++">
+<span class="c1">// [[Rcpp::export]]
+</span><span class="c1"></span><span class="n">vec</span> <span class="nf">f_cpp</span><span class="p">(</span><span class="n">Rcpp</span><span class="o">::</span><span class="n">NumericVector</span> <span class="n">y</span> <span class="o">=</span> <span class="n">Rcpp</span><span class="o">::</span><span class="n">NumericVector</span><span class="o">::</span><span class="n">create</span><span class="p">())</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">y</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">exp2</span><span class="p">(</span><span class="n">y</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div><p>As you can see, I initialized an empty vector using Rcpp. Afterward, one can easily check if that vector is empty and apply the desired defaults. This recreates our R function and leaves us with the desired result.</p>
+<p>Feel free to contact me via <a href="mailto:jonathan@berrisch.biz">mail</a> for Feedback of any kind.</p>
 ]]></content>
 		</item>
 		

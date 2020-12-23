@@ -4,6 +4,7 @@
     // "appPort": 1313,
     "extensions": [
         "streetsidesoftware.code-spell-checker",
+        "znck.grammarly",
         "yzhang.markdown-all-in-one"
     ],
     "settings": {
