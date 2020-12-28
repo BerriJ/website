@@ -1,0 +1,6 @@
+[submodule "static/cv"]
+	path = static/cv
+	url = git@github.com:BerriJ/cv.git
+[submodule "themes/hermit"]
+	path = themes/hermit
+	url = https://github.com/Track3/hermit.git
