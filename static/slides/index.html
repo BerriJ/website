@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Umweltökonomik und Erneuerbare Energien</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Jonathan Berrisch" />
+    <meta name="date" content="2021-01-12" />
+    <link href="UEE_uebung_09_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="../../assets/sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/sydney.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Umweltökonomik und Erneuerbare Energien <svg style="height:0.8em;top:.04em;position:relative;fill:green;" viewBox="0 0 512 512"><path d="M64 96H0c0 123.7 100.3 224 224 224v144c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V320C288 196.3 187.7 96 64 96zm384-64c-84.2 0-157.4 46.5-195.7 115.2 27.7 30.2 48.2 66.9 59 107.6C424 243.1 512 147.9 512 32h-64z"/></svg> <svg style="height:0.8em;top:.04em;position:relative;fill:green;" viewBox="0 0 384 512"><path d="M256 144V32c0-17.673 14.327-32 32-32s32 14.327 32 32v112h-64zm112 16H16c-8.837 0-16 7.163-16 16v32c0 8.837 7.163 16 16 16h16v32c0 77.406 54.969 141.971 128 156.796V512h64v-99.204c73.031-14.825 128-79.39 128-156.796v-32h16c8.837 0 16-7.163 16-16v-32c0-8.837-7.163-16-16-16zm-240-16V32c0-17.673-14.327-32-32-32S64 14.327 64 32v112h64z"/></svg>
+## Übung 9
+### Jonathan Berrisch
+### 2021-01-12
+
+---
+
+
+class: center, middle, sydney-blue
+
+# Aufgabe 1: Stromentstehungskosten
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-blue[
+Stellen Sie sich vor, Sie arbeiten für eine Investitionsabteilung eines Staates. Sie müssen eine Analyse der Stromentstehungskosten von einem Kohlekraftwerk und einem on-shore Windkraftwerk. Sie müssen eine Entscheidung treffen, welches Kraftwerk im Staat gebaut werden muss.
+]
+
+--
+
+.content-box-blue[
+Um die entsprechenden Kosten zu schätzen, benutzen Sie eine betriebswirtschaftliche Maßgröße, die levelized cost of electricity heißt. Beachten Sie dabei, dass diese Maßgröße relativ viele Details (wie beispielsweise Steuern) vernachlässigt. Es gibt außerdem keine Standartform dieser Maßgröße. Wir benutzen die Formel aus folgender Quelle: Levelized cost of electricity, renewable energy technologies, Fraunhofer ISE (2013).  Diese Größe wird in Tausend EUR pro MWh gemessen und lässt sich wie folgt darstellen:
+]
+
+--
+
+.content-box-blue[
+`\begin{align}
+LCOE=\cfrac{I_0 + \sum_{t=1}^{n} \cfrac{A_t+c_t\cdot\text{CO}_{2,t}}{(1+r)^t}}{\sum_{t=1}^n\cfrac{M_{t, el}}{(1+r)^t}}.
+\end{align}`
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-blue[
+`\begin{align}
+LCOE=\cfrac{I_0 + \sum_{t=1}^{n} \cfrac{A_t+c_t\cdot\text{CO}_{2,t}}{(1+r)^t}}{\sum_{t=1}^n\cfrac{M_{t, el}}{(1+r)^t}}.
+\end{align}`
+
+- `\(I_0\)` die ursprünglichen Investitionskosten
+- `\(t\)` das Jahr des Projektlebenszyklus 
+- `\(n\)` die Lebensdauer des Projekts
+- `\(A_t\)` die Gesamtproduktionskosten im Jahr `\(t\)` 
+- `\(r\)` der reelle Zinssatz 
+- `\(M_{t, el}\)` die Strommenge im Jahr `\(t\)` 
+- `\(c_t\)` die Kosten für die Erzeugung der Treibhausgasemissionen
+- `\(CO_{2,t}\)` die Menge der produzierten `\(CO_2\)`-Emissionen im Jahr `\(t\)`
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+#### Kohlekraftwerk
+
+.content-box-blue[
+Um die LCOE-Kosten zu berechnen, müssen Sie die zukünftige Leistung und Kosten der beiden Kraftwerke plausiblerweise prognostizieren. Sie haben jedoch nur wenige Informationen bezüglich der beiden Kraftwerke. Deshalb gehen Sie davon aus, dass die Leistung und Kosten im Laufe der Zeit konstant bleiben. Alle weiteren Details zu den Kraftwerken lassen sich wie folgt beschreiben
+]
+
+--
+
+.content-box-blue[
+Die Leistung eines Kohlekraftwerks ist 1000 MW. Die entsprechenden Erstinvestitionen sind ca. 1300 Tausend EUR pro MW. Das Kohlekraftwerk wird **vier Jahre nach der Erstinvestitionen in Betrieb** genommen.
+]
+
+--
+
+.content-box-orange[
+Die Ursprünglichen Investitionskosten
+
+`\(\Rightarrow I_{0,k} = 1300*1000\)`
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+#### Kohlekraftwerk
+
+--
+
+.content-box-blue[
+Das Kraftwerk kann an ca. 7000 Stunden pro Jahr Strom produzieren. In diesem Zeitraum wird `\(7000 \text{ Stunden} \cdot 1000 \text{ MW} = 7.000.000\)` MWh Energie erzeugt. Das Kraftwerk emittiert zusätzlich 0.36 Tonnen `\(CO_2\)`-Emissionen pro MWh der produzierten Energie. Die Strafe für die Erzeugung der Emissionen ist durch `\(c_t\)` gegeben und wird in Höhe von 0.006 Tausend EUR pro Tonne der `\(CO_2\)`-Emissionen bezahlt. Die jährlichen fixierten Produktionskosten sind wiederum gleich ca. 36 Tausend EUR pro MW. Die variablen Kosten sind  gleich 0.0016 Tausend EUR pro MWh der Energie. 
+]
+
+.content-box-orange[
+Die `\(CO_2\)` Emissionen
+
+`\(\Rightarrow CO_{2,k} = 7.000.000*0.36\)`
+]
+
+--
+
+.content-box-orange[
+Die Gesamtkosten
+
+`\(\Rightarrow A_{t,k} = 36*1000 + 0.0016*7.000.000\)`
+]
+
+--
+
+.content-box-orange[
+Die Strafe
+`\(c_t = 0.006\)` und Strafzahlung `\(\Rightarrow CO_{2,k} *c_t\)`
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+#### Kohlekraftwerk
+
+.content-box-blue[
+Das Kraftwerk kann aber nur 46% der Energie in Elektrizität umwandeln. Es folgt daraus, dass der Wert 46% die Effizienz des Kohlekraftwerks darstellt. Der Effizienzverlust entsteht aus den Besonderheiten der entsprechenden Produktionsprozessen. 
+]
+
+--
+
+.content-box-orange[
+Die Strommenge im Jahr t
+
+`\(\Rightarrow M_{t,el,k} = 7000*1000*0.46 = 3.220.000\)`
+]
+
+--
+
+.content-box-blue[
+Die **Betriebsdauer des Kraftwerks ist mindestens 40 Jahre**. Der entsprechende real kalkulierte Zinssatz ist gleich 6.9%. Der letzte Wert stellt Mindestrendite des Kraftwerks dar. Wir können diesen Wert als WACC (weighted average cost of capital) betrachten.
+]
+
+.content-box-orange[
+Der Zinssatz
+
+`\(\Rightarrow r_k = 0.069\)`
+]
+
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+#### Windkraftwerk
+
+.content-box-blue[
+Die ursprüngliche Investitionen eines 500MW-Windkraftwerks sind ca. 1600 Tausend EUR pro MW. Seine **Betriebsdauer liegt bei ca. 20 Jahren**. Das Kraftwerk wird **drei Jahre nach den Erstinvestitionen** in Betrieb genommen.
+]
+
+--
+
+.content-box-orange[
+Die Ursprünglichen Investitionskosten
+
+`\(\Rightarrow I_{0,w} = 1600*500\)`
+]
+
+--
+
+.content-box-blue[
+Obwohl das Kraftwerk nur ca. 1800 Stunden pro Jahr effizient funktionieren kann, hat das Kraftwerk **keinen Effizienzverlust**. Das Windkraftwerk erzeugt außerdem **keine `\(CO_2\)`-Emissionen**. Seine fixierte und variable Kosten sind ca. 0.018 Tausend EUR bzw. 0 EUR pro MWh. Der reale Zinssatz ist wiederum nur 3.8%.
+]
+
+.content-box-orange[
+Die Produzierte Strommenge
+
+`\(\Rightarrow M_{t,el,w} = 500*1800 = 900.000\)`
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+#### Windkraftwerk
+
+.content-box-blue[
+Obwohl das Kraftwerk nur ca. 1800 Stunden pro Jahr effizient funktionieren kann, hat das Kraftwerk **keinen Effizienzverlust**. Das Windkraftwerk erzeugt außerdem **keine `\(CO_2\)`-Emissionen**. Seine fixierten Kosten sind ca. 0.018 Tausend EUR pro MW und die variablen Kosten sind 0 EUR pro MWh. Der reale Zinssatz ist wiederum nur 3.8%.
+]
+
+.content-box-orange[
+Die Produzierte Strommenge
+
+`\(\A_{t,el,w} = 500*0.018 + 0*500 = 9\)`
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+#### Windkraftwerk
+
+.content-box-yellow[
+Warum kann plausiblerweise der Zinssatz des Windkraftwerks kleiner sein, als dieser des Kohlekraftwerks?
+]
+
+--
+
+.content-box-green[
+  Für das Kohlekraftwerk gilt:
+- Längere Betriebsdauer
+- Höhere Unsicherheit
+- Kompliziertere Projektplanung 
+]
+
+--
+
+.content-box-green[
+Außerdem:
+
+- potentiell steigende Brennstoffkosten und die Kosten für die `\(CO_2\)`-Emissionen
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+#### Windkraftwerk
+
+.content-box-yellow[
+Gehen Sie davon aus, dass alle oben definierten Parameter im Laufe der Zeit konstant sind. Berechnen Sie die `\(LCOE\)`-Werte der Kohle- und Windkraftwerke. Beachten Sie dabei, dass die Gleichung
+`\begin{align}
+\sum_{t=1}^n\cfrac{\gamma_{t}}{(1+r)^t}=\gamma_t \cdot \left[\cfrac{1-\cfrac{1}{(1+r)^n}}{r}\right]
+\end{align}`
+	
+gilt, sofern `\(\gamma_1=\gamma_2=...=\gamma_{n-1}=\gamma_n\)` ist.
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-green[
+Der `\(LCOE\)`-Wert des Kohlekraftwerks lässt sich wie folgt darstellen
+`\begin{align}
+LCOE_K &amp; = \cfrac{1300\cdot 1000 + \sum\limits_{t=4}^{43} \cfrac{A_{t,K}+c_t\cdot CO_{2,t,K}}{(1+0.069)^t}}{\sum\limits_{t=4}^{43} \cfrac{M_{t, el, K}}{(1+0.069)^t}},
+\end{align}`
+
+
+wobei
+
+`\begin{align}
+A_{t,K} +c_t\cdot CO_{2,t,K} &amp; = \underbrace{36\cdot 1000}_{\text{fixierte Kosten}} + \underbrace{0.0016\cdot 7000\cdot 1000}_{\text{variable Kosten}} + 0.006\cdot\underbrace{(7000\cdot 1000\cdot 0.36)}_{\text{CO}_2\text{-Emissionen}} = 62320 \label{GL3}
+\end{align}`
+und
+	\begin{align}	
+	M_{t, el, K}  = 7000 \cdot 1000 \cdot 0.46 = 3220000.
+	\end{align}
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-green[
+Bevor wir uns mit der Berechnung des `\(LCOE_K\)`-Werts weiter beschäftigen, müssen wir die Faktoren der Gleichung näher anschauen. Natürlich stellt der Faktor `\(1300\cdot 1000\)` die entsprechenden Erstinvestitionen dar. Der zweite Faktor im Zähler und der Nenner sind wiederum die diskontierten zukünftigen Gesamtkosten bzw. die diskontierten zukünftigen Gesamtstrommengen. Anzumerken ist, dass die Gesamtkosten inkl. Kosten für Treibhausgasemissionen `\(A_{t, K}\)` in Tausend EUR gemessen werden. Die Gesamtstrommenge `\(M_{t, el, K}\)` wird wiederum in MWh dargestellt. 
+]
+
+--
+
+.content-box-green[
+Beachten Sie dabei, dass 4 und 43 die Start- bzw. Endwerte der zwei Summen in der Gleichung sind. Diese Werte lassen sich wie folgt erklären. Mit Hinsicht auf unsere Annahme wird das Kraftwerk nur ab dem Jahr `\(t=4\)` Energie erzeugen. Das Kraftwerk bekommt daher seine erste Rendite am Ende des Jahres `\(t=4\)`. Zum zweiten ist seine Betriebsdauer 40 Jahre. Es folgt daraus, dass das Kraftwerk bis zum Jahr `\(t=43\)` funktioniert. Mit anderen Worten ist das Kraftwerk von Anfang des Jahres `\(t=4\)` bis zum Ende des Jahres `\(t=43\)` im Betrieb ist. Das Kraftwerk bekommt daher seine letzte Rendite am Ende des Jahres `\(t=43\)`. 
+]
+
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-green[
+Durch unsere Annahme sind die Werte `\(A_{t, K}\)` und `\(M_{t, el, K}\)` immer konstant. Deshalb können wir die Formel 3 aus der Aufgabestellung anwenden. Beachten Sie dabei, dass die Start- und Endwerte der Summenzeichen der Formel 3 aus der Aufgabestellung  gleich 1 bzw. 40 sind. In unserem Fall (siehe Gleichung 1) sind aber diese Werte 4 bzw. 43. Daher müssen wir die Werte `\(A_{4, K}\)` und `\(M_{4, el, K}\)` zum Zeitpunkt `\(t=1\)` diskontieren, um die Formel anwenden zu können. Es folgt somit
+`\begin{align}
+A_{t, K}^*&amp;= \cfrac{A_{4, K} +c_t\cdot CO_{2,t,K}}{(1+0.069)^3} = \cfrac{62320}{1.221} = 51015.06 \\
+\text{und} \nonumber\\
+%
+M_{t,el, K}^* &amp;= \cfrac{M_{4,el, K}}{(1+0.069)^3} = \cfrac{3220000}{1.221} = 2637182.64
+\end{align}`
+wobei `\(A_{t,K}^*\)` und. `\(M_{t, el, K}^*\)` in Tausend EUR bzw. MWh gemessen werden. 
+]
+
+---
+
+.content-box-green[
+Wenn wir nun die Faktoren `\(A_{t, K}^*\)` und `\(	M_{t,el, K}^*\)` als Startwerte betrachten, lassen sich die Summen der Gleichung 1 wie folgt darstellen
+
+`\begin{align}
+\sum\limits_{t=4}^{43} \cfrac{A_{t, K}}{(1+0.069)^t} = \sum\limits_{t=1}^{40} \cfrac{A_{t, K}^*}{(1+0.069)^t} &amp; = 51015.06  \cdot \left[\cfrac{1-\cfrac{1}{(1+0.069)^{40}}}{0.069}\right] \\
+&amp; = 51015.06 \cdot 13.49 = 688093.1 \\
+\sum\limits_{t=4}^{43} \cfrac{M_{t, el, K}}{(1+0.069)^t} = \sum\limits_{t=1}^{40} \cfrac{M_{t,el, K}^*}{(1+0.069)^t}  &amp; = 2637182.64 \cdot 13.49 = 35575594
+\end{align}`
+
+wobei die Ergebnisse der Linien 10 und 11 in Tausend EUR bzw. MWh dargestellt werden. Es folgt somit
+`\begin{align}
+LCOE_K = \frac{1300000 + 688093.1}{35575594} = 0.0558
+\end{align}`
+wobei `\(LCOE_K\)` in Tausend EUR pro MWh gemessen wird und die Abweichungen zwischen unseren Ergebnissen und diesen der Excel-Datei rundungsbedingt sind.
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-green[
+
+Der `\(LCOE\)`-Wert des Windkraftwerks kann wie folgt dargestellt werden
+`\begin{align}
+LCOE_W &amp; = \cfrac{1600\cdot 500 + \sum\limits_{t=3}^{22}\cfrac{A_{t, W}+c_t\cdot CO_{2,t,W}}{(1+0.038)^t}}{\sum\limits_{t=3}^{22} \cfrac{M_{t, el, W}}{(1+0.038)^t}}	\\
+mit \nonumber \\
+A_{t, W} +c_t\cdot CO_{2,t,W} &amp; = 500 \cdot 0.018 = 9 \\
+M_{t, el, W} &amp; = 500 \cdot 1800 \cdot 1 = 900000. 
+\end{align}`
+
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-green[
+
+Anzumerken ist, dass `\(A_{t,W}\)` und `\(M_{t, el, W}\)` in Tausend EUR bzw. MWh dargestellt werden.	Analog zum Kohlekraftwerk kann man schreiben
+
+`\begin{align}
+A_{t, W}^* &amp; = \cfrac{A_{t, W} +c_t\cdot CO_{2,t,W}}{(1+0.039)^2} = \cfrac{9}{(1+0.038)^2} = 8.353  \\
+und	\nonumber\\
+M_{t,el, W}^* &amp; = \cfrac{M_{t, el, W}}{(1+0.039)^2} = \cfrac{900000}{(1+0.038)^2} = 835310.2
+\end{align}`
+
+wobei `\(A_{t,W}^*\)` und. `\(M_{t, el, W}^*\)` in Tausend EUR bzw. MWh gemessen werden.
+
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-green[
+
+Dann gelten
+`\begin{align}
+\sum\limits_{t=3}^{22} \cfrac{A_{t, W}}{(1+0.038)^t} = \sum\limits_{t=1}^{20} \cfrac{A_{t, W}^*}{(1+0.038)^t} &amp; = 8.353  \cdot \left[\cfrac{1-\cfrac{1}{(1+0.038)^{20}}}{0.038}\right] \\
+&amp; = 8.353 \cdot 13.843 = 115.55 \label{GL17} \\
+\text{und} \\
+\sum\limits_{t=3}^{22} \cfrac{M_{t, el, W}}{(1+0.038)^t} = \sum\limits_{t=1}^{20} \cfrac{M_{t, el W}^*}{(1+0.038)^t} &amp;  = 835310.2 \cdot 13.843 = 11563199  \label{GL18}
+\end{align}`
+wobei die Ergebnisse der Gleichungen \ref{GL17} und \ref{GL18} in Tausend EUR bzw. MWh gemessen werden.
+
+Es folgt somit
+`$$LCOE_W = \frac{800000 + 115.55}{11563199} = 0.0692$$`
+wobei `\(LCOE_W\)` in Tausend EUR pro MWh dargestellt wird.
+
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-yellow[
+Nehmen Sie nun an, dass die Kosten `\(c_t\)` im Jahr 10 steigen. Daher gilt `\(c_t=0.040\)` wenn `\(t\geq 10\)` ist. Mit Hinsicht auf diese Annahme, ist das Windkraftwerk effizienter, als das Kohlekraftwerk?
+]
+
+--
+
+.content-box-green[
+Wir betrachten nun folgende Situation. Bis zum Jahr `\(t=9\)` sind die Kosten für die Treibhausgasemissionen `\(c_t=0.006\)` Tausend EUR pro MWh. Ab dem Jahr `\(t \geq 10\)` gilt aber `\(c_t=0.040\)` Tausend EUR pro MWh. Mit Hinsicht auf die Gleichung \ref{GL3} scheint es klar, dass der Wert `\(A_{t, K}\)` vor der Kostenerhöhung dem Wert `\(A_{t, K}^\tau\)` nach der Kostenerhöhung nicht entspricht. Deshalb gilt folgende Gleichung:
+
+`\begin{align}
+LCOE_K = \cfrac{1300000 + \sum\limits_{t=4}^{9} \cfrac{A_{t, K}}{(1+0.069)^t} + \sum\limits_{t=10}^{43} \cfrac{A_{t, K}^\tau}{(1+0.069)^t} }{35575594}, \label{GL20}
+\end{align}`
+wobei der Faktor `\(A_{t, K}\)` und der Nenner der obigen Gleichung in vorher ermittelt wurden.Natürlich beeinflusst der Erhöhung des Werts `\(c_t\)` die Menge der erzeugten Elektrizität nicht. 
+]
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-green[
+Außerdem gilt
+`\begin{align}
+A_{t, K}^\tau = \underbrace{36\cdot 1000}_{\text{fixierte Kosten}} + \underbrace{0.0016\cdot 7000 \cdot 1000}_{\text{variable Kosten}} + 0.04\cdot\underbrace{(7000\cdot 1000 \cdot 0.36)}_{\text{CO}_2\text{-Emissionen}} = 148000.
+\end{align}`
+
+Beachten Sie dabei, dass wir den zweiten Faktor im Zähler der Gleichung \ref{GL20} wie folgt darstellen können
+`\begin{align}
+\sum\limits_{t=4}^{9} \cfrac{A_{t,K}}{(1+0.069)^t} = \sum\limits_{t=1}^{6} \cfrac{A^*_{t,K}}{(1+0.069)^t} &amp; = 51015.06 \cdot \left[\cfrac{1-\cfrac{1}{(1+0.069)^{6}}}{0.069}\right] \\
+%
+&amp; = 51015.06 \cdot 4.78129 = 243917.8
+\end{align}`
+wobei der Wert `\(A_{t, K}^*\)` in der Gleichung \ref{GLAS} berechnet wird.
+
+Wir müssen nun den letzten Faktor im Zähler der Gleichung \ref{GL20} bestimmen. Daher ist es notwendig, den Wert `\(A_{t,K}\)` im Zeitpunkt `\(t=9\)` zum Zeitpunkt `\(t=1\)` zu diskontieren.
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+
+.content-box-green[ Es folgt somit
+`\begin{align}
+  A^{*, \tau}_{t,K} = \frac{A_{9,K}^\tau}{(1+0.069)^9} = \frac{1480000}{1.823}=81182.49.
+\end{align}`
+Daher gilt
+`\begin{align}
+\sum\limits_{t=10}^{43} \cfrac{A_{t, K}^\tau}{(1+0.069)^t} = \sum\limits_{t=1}^{34} \cfrac{A^{*, \tau}_{t,K}}{(1+0.069)^t} &amp; = A^{*, \tau}_{t,K} \cdot \left[\cfrac{1-\cfrac{1}{(1+0.069)^{34}}}{0.069}\right] \\
+%
+&amp; = 81182.49 \cdot 12.993 = 1054804.
+\end{align}`
+Der entsprechende `\(LCOE\)`-Wert lässt sich einfach berechnen
+`\begin{align}
+LCOE_K = \frac{1300000+243917.8+1054804}{35575594} = 0.07304788.
+\end{align}`
+wobei `\(LCOE_K\)` in Tausend EUR pro MWh gemessen wird.
+
+]
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.content-box-yellow[
+Es scheint offensichtlich, dass die Kosten des Windkraftwerks kleiner sein können, als diese des Kohlekraftwerks. Warum kann sich ein Staat trotzdem entscheiden, eher ein Kohlekraftwerk zu bauen?
+]
+
+---
+
+### Aufgabe 1: Stromentstehungskosten
+
+.pull-left[
+
+&lt;!--
+
+--&gt;
+
+&lt;/br&gt;
+
+&lt;div id="bg"&gt;
+  &lt;img src="figures/Graph2.png" width="1500px"&gt;
+&lt;/div&gt;  
+
+]
+
+.pull-left[
+Anzumerken ist, dass ein Windkraftwerk von den Wetterbedingungen abhängig ist. An Tagen ohne Wind kann daher das Windkraftwerk keinen Strom produzieren. Das Kohlekraftwerk kann aber Energie bei Bedarf erzeugen.Erinnern Sie sich daran, dass die Betriebsstunden des Kohlekraftwerks und des Windkraftwerks ca. 7000 bzw. 1800 Stunden pro Jahr in unserem Beispiel sind. Das Kohlekraftwerk kann deshalb für einen Staat besser sein, wenn dieser Staat z.B. die Strompreisschwankungen in seinem Energiesektor vermeiden möchte.
+]
+---
+
+class: center, middle, sydney-blue
+
+Ende.
+
+&lt;/br&gt;
+
+&lt;svg style="height:50;fill:#f2f2f2;" viewBox="0 0 640 512"&gt;&lt;path d="M255.03 261.65c6.25 6.25 16.38 6.25 22.63 0l11.31-11.31c6.25-6.25 6.25-16.38 0-22.63L253.25 192l35.71-35.72c6.25-6.25 6.25-16.38 0-22.63l-11.31-11.31c-6.25-6.25-16.38-6.25-22.63 0l-58.34 58.34c-6.25 6.25-6.25 16.38 0 22.63l58.35 58.34zm96.01-11.3l11.31 11.31c6.25 6.25 16.38 6.25 22.63 0l58.34-58.34c6.25-6.25 6.25-16.38 0-22.63l-58.34-58.34c-6.25-6.25-16.38-6.25-22.63 0l-11.31 11.31c-6.25 6.25-6.25 16.38 0 22.63L386.75 192l-35.71 35.72c-6.25 6.25-6.25 16.38 0 22.63zM624 416H381.54c-.74 19.81-14.71 32-32.74 32H288c-18.69 0-33.02-17.47-32.77-32H16c-8.8 0-16 7.2-16 16v16c0 35.2 28.8 64 64 64h512c35.2 0 64-28.8 64-64v-16c0-8.8-7.2-16-16-16zM576 48c0-26.4-21.6-48-48-48H112C85.6 0 64 21.6 64 48v336h512V48zm-64 272H128V64h384v256z"/&gt;&lt;/svg&gt;
+
+
+&lt;a href="https://github.com/BerriJ" class="github-corner" aria-label="View source on Github"&gt;&lt;svg width="80" height="80" viewBox="0 0 250 250" style="fill:#f2f2f2; color:#212121; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"&gt;&lt;path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"&gt;&lt;/path&gt;&lt;path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"&gt;&lt;/path&gt;&lt;path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;style&gt;.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../assets/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": null,
+"scroll": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
