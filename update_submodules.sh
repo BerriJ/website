@@ -1,3 +1,7 @@
+# To clone the submodules
+git submodule init
+git submodule update
+
 # To update all submodules:
 git submodule update --remote
 
