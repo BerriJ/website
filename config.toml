@@ -52,7 +52,7 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   code_copy_button = true # Turn on/off the code-copy-button for code-fields
   
   # Add custom css
-  # customCSS = ["css/foo.css", "css/bar.css"]
+  # customCSS = ["css/berrij.css"]
 
   # Social Icons
   # Check https://github.com/Track3/hermit#social-icons for more info.
@@ -74,6 +74,11 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   [[menu.main]]
     name = "Posts"
     url = "posts/"
+    weight = 10
+
+  [[menu.main]]
+    name = "My Github Stats"
+    url = "ghstats"
     weight = 10
 
   [[menu.main]]
