@@ -13,6 +13,29 @@
     
     
     <item>
+      <title>Research</title>
+      <link>https://berrisch.biz/research/</link>
+      <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://berrisch.biz/research/</guid>
+      <description>CRPS Learning, 2021, Jonathan Berrisch &amp;amp; Florian Ziel This paper treats how online learning algorithms can be used for the pointwise combination of probabilistic forecasts.
+Pre-Print
+Presentation
+Modeling and probabilistic forecasting of natural gas prices, 2021, Jonathan Berrisch &amp;amp; Florian Ziel This paper presents price forecasting studies for two essential European natural-gas products.
+Pre-Print
+Projects profoc - An R Package for Probabilistic Forecast Combination This package implements methods which are proposed and discussed in CRPS Learning.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://berrisch.biz/ghstats/</link>
+      <pubDate>Sat, 15 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://berrisch.biz/ghstats/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Pre-specified variables as default arguments in Rcpp(armadillo)</title>
       <link>https://berrisch.biz/posts/2020_12_23_rcpp_defaults/</link>
       <pubDate>Wed, 23 Dec 2020 00:00:00 +0000</pubDate>
@@ -21,15 +44,6 @@
       <description>Lately, I&amp;rsquo;m using Rcpp and RcppArmadillo a lot to speed up the computational work of my current research project.
 I stumbled over a lot of problems which are easily solved in R but a pain to get working in C++ Armadillo. So I thought, I&amp;rsquo;d share some of my solutions.
 The first one is here. We want to create an R function f with argument y which defaults to 1:5:</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://berrisch.biz/ghstats/</link>
-      <pubDate>Wed, 09 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>https://berrisch.biz/ghstats/</guid>
-      <description></description>
     </item>
     
   </channel>
