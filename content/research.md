@@ -12,7 +12,9 @@ This paper treats how online learning algorithms can be used for the pointwise c
 
 [Presentation](../slides/21_05_france)
 
-[Presentation for the International Symposium on Forecasting (Short)](../slides/21_06_isf)
+[Presentation at the International Symposium on Forecasting (Short)](../slides/21_06_isf)
+
+[Presentation at Elecricity Price Forecasting Group](../slides/21_11_epf)
 
 ### Modeling and probabilistic forecasting of natural gas prices, 2021, Jonathan Berrisch & Florian Ziel
 
