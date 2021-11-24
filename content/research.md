@@ -4,7 +4,7 @@ date = "2021-05-27"
 draft = false
 +++
 
-### CRPS Learning, 2021, Jonathan Berrisch & Florian Ziel
+### CRPS Learning, 2021, Jonathan Berrisch & Florian Ziel, Journal of Econometrics, Forthcoming
 
 This paper treats how online learning algorithms can be used for the pointwise combination of probabilistic forecasts.
 
