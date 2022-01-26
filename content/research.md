@@ -22,6 +22,8 @@ This paper treats how online learning algorithms can be used for the pointwise c
 
 This paper presents price forecasting studies for two essential European natural-gas products.
 
+[Wiley](https://doi.org/10.1002/for.2853)
+
 [Pre-Print](https://arxiv.org/abs/2010.06227) 
 
 # Projects
