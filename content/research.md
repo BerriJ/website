@@ -18,6 +18,8 @@ This paper treats how online learning algorithms can be used for the pointwise c
 
 [Presentation at Elecricity Price Forecasting Group](../slides/21_11_epf)
 
+[Presentation at 15TH RGS Doctoral Conference in economics](../slides/22_02_rgs)
+
 ### Distributional modeling and forecasting of natural gas prices, 2021, Jonathan Berrisch & Florian Ziel
 
 This paper presents price forecasting studies for two essential European natural-gas products.
