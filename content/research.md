@@ -4,29 +4,25 @@ date = "2021-05-27"
 draft = false
 +++
 
+### High-Resolution Peak Demand Estimation Using Generalized Additive Models and Deep Neural Networks, 2022, Jonathan Berrisch & Michal Narajewski & Florian Ziel
+
+This paper presents a method for estimating high-resolution electricity peak demand given lower resolution data.
+
+Paper: [Pre-Print](https://arxiv.org/abs/2203.03342)
+
 ### CRPS Learning, 2021, Jonathan Berrisch & Florian Ziel, Journal of Econometrics
 
 This paper treats how online learning algorithms can be used for the pointwise combination of probabilistic forecasts.
 
-[Elsevier](https://authors.elsevier.com/a/1eKV815Dji7UNa)
+Paper: [Elsevier](https://authors.elsevier.com/a/1eKV815Dji7UNa) | [Pre-Print](https://arxiv.org/abs/2102.00968)
 
-[Pre-Print](https://arxiv.org/abs/2102.00968)
-
-[Presentation](../slides/21_05_france)
-
-[Presentation at the International Symposium on Forecasting (Short)](../slides/21_06_isf)
-
-[Presentation at Elecricity Price Forecasting Group](../slides/21_11_epf)
-
-[Presentation at 15TH RGS Doctoral Conference in economics](../slides/22_02_rgs)
+Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [2021 ISF](../slides/21_06_isf) | [2021 EPF Group](../slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../slides/22_02_rgs)
 
 ### Distributional modeling and forecasting of natural gas prices, 2021, Jonathan Berrisch & Florian Ziel
 
 This paper presents price forecasting studies for two essential European natural-gas products.
 
-[Wiley](https://doi.org/10.1002/for.2853)
-
-[Pre-Print](https://arxiv.org/abs/2010.06227) 
+Paper: [Wiley](https://doi.org/10.1002/for.2853) | [Pre-Print](https://arxiv.org/abs/2010.06227) 
 
 # Projects
 
@@ -34,19 +30,19 @@ This paper presents price forecasting studies for two essential European natural
 
 This package implements methods which are proposed and discussed in [CRPS Learning](https://arxiv.org/abs/2102.00968).
 
-[GitHub](https://github.com/BerriJ/profoc)
+[CRAN](https://cran.rstudio.com/web/packages/profoc/index.html) | [GitHub](https://github.com/BerriJ/profoc) | [Documentation](https://profoc.berrisch.biz/)
 
-[Documentation](https://profoc.berrisch.biz/)
+## dccpp - An R Package for fast computation of the distance covariance and distance correlation
+
+The computation cost is only O(n log(n)) for the distance correlation (see Chaudhuri, Hu, 2019, arXiv, elsevier). The functions are written entirely in C++ to speed up the computation.
+
+[CRAN](https://cran.r-project.org/web/packages/dccpp/index.html) | [GitHub](https://github.com/BerriJ/dccpp) | [Documentation](https://dccpp.berrisch.biz/)
 
 ## sstudentt - A python package implementing the skewed-student-t distribution
 
 This package implements the skewed student-t distribution in python. Parameterized as described in Wurtz et. al (2006) [1]. An implementation in R is already existent [2].
 
-[Github](https://github.com/BerriJ/sstudentt/edit/master/README.rst)
-
-[PyPi](https://pypi.org/project/sstudentt/)
-
-[Documentation](https://sstudentt.readthedocs.io/en/latest/)
+[PyPi](https://pypi.org/project/sstudentt/) | [Github](https://github.com/BerriJ/sstudentt/edit/master/README.rst) | [Documentation](https://sstudentt.readthedocs.io/en/latest/)
 
 # Development
 
