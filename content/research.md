@@ -14,7 +14,7 @@ Paper: [Pre-Print](https://arxiv.org/abs/2203.03342)
 
 This paper treats how online learning algorithms can be used for the pointwise combination of probabilistic forecasts.
 
-Paper: [Elsevier](https://authors.elsevier.com/a/1eKV815Dji7UNa) | [Pre-Print](https://arxiv.org/abs/2102.00968)
+Paper: [Elsevier](https://doi.org/10.1016/j.jeconom.2021.11.008) | [Pre-Print](https://arxiv.org/abs/2102.00968)
 
 Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [2021 ISF](../slides/21_06_isf) | [2021 EPF Group](../slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../slides/22_02_rgs)
 
