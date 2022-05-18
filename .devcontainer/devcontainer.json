@@ -9,9 +9,7 @@
     ],
     "settings": {
         "files.exclude": {
-            "**/resources": true,
-        },
-        // Use zsh
-        "terminal.integrated.shell.linux": "/bin/zsh"
+            "**/resources": true
+        }
     }
 }

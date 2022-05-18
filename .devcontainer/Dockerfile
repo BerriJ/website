@@ -6,6 +6,24 @@ SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ Europe/Berlin
 
+ARG USERNAME=vscode
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+# Add non root user
+RUN groupadd --gid $USER_GID $USERNAME \
+    && useradd -rm -d /home/$USERNAME -s /bin/bash -g root --uid $USER_UID --gid $USER_GID $USERNAME \
+    && addgroup $USERNAME staff
+
+# Create folders to mount extensions
+RUN mkdir -p /home/$USERNAME/.vscode-server/extensions \
+    /home/$USERNAME/.vscode-server-insiders/extensions \
+    workspaces \
+    && chown -R $USERNAME \
+    /home/$USERNAME/.vscode-server \
+    /home/$USERNAME/.vscode-server-insiders \
+    workspaces
+
 # Configure apt and install packages
 RUN apt-get update \
     && apt-get -y install --no-install-recommends \
@@ -38,6 +56,9 @@ RUN apt-get update \
 RUN mkdir -p "$HOME/.zsh" &&\
     git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 
-COPY .misc/.zshrc /root/.
+COPY --chown=$USERNAME .misc/.zshrc /home/$USERNAME/vscode/.
+
+# Switch to non-root user
+USER $USERNAME
 
 ENTRYPOINT [ "/bin/zsh" ]

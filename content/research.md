@@ -10,6 +10,8 @@ This paper presents a method for estimating high-resolution electricity peak dem
 
 Paper: [Pre-Print](https://arxiv.org/abs/2203.03342)
 
+Presentations: [Brown-Bag](../slides/22_05_brown_bag)
+
 ### CRPS Learning, 2021, Jonathan Berrisch & Florian Ziel, Journal of Econometrics
 
 This paper treats how online learning algorithms can be used for the pointwise combination of probabilistic forecasts.
