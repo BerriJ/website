@@ -18,7 +18,7 @@ This paper treats how online learning algorithms can be used for the pointwise c
 
 Paper: [Elsevier](https://doi.org/10.1016/j.jeconom.2021.11.008) | [Pre-Print](https://arxiv.org/abs/2102.00968)
 
-Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [2021 ISF](../slides/21_06_isf) | [2021 EPF Group](../slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../slides/22_02_rgs)
+Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [2021 ISF](../slides/21_06_isf) | [2021 EPF Group](../slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../slides/22_02_rgs) [2022 ICCF](../slides/22_06_iccf)
 
 ### Distributional modeling and forecasting of natural gas prices, 2021, Jonathan Berrisch & Florian Ziel
 
