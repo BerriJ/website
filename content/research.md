@@ -4,6 +4,12 @@ date = "2021-05-27"
 draft = false
 +++
 
+### An Introduction to Rcpp Modules
+
+This is a talk I gave at the UseR! 2022 Conference. It covers the essentials on how to expose C++ classes to R using Rcpp Modules.
+
+Presentations: [UseR!](../slides/22_06_useR)
+
 ### High-Resolution Peak Demand Estimation Using Generalized Additive Models and Deep Neural Networks, 2022, Jonathan Berrisch & Michal Narajewski & Florian Ziel
 
 This paper presents a method for estimating high-resolution electricity peak demand given lower resolution data.
