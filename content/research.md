@@ -16,7 +16,7 @@ This paper presents a method for estimating high-resolution electricity peak dem
 
 Paper: [Pre-Print](https://arxiv.org/abs/2203.03342)
 
-Presentations: [Brown-Bag](../slides/22_05_brown_bag)
+Presentations: [Brown-Bag](../slides/22_05_brown_bag) | [2022 ISF](../slides/22_07_isf) 
 
 ### CRPS Learning, 2021, Jonathan Berrisch & Florian Ziel, Journal of Econometrics
 
