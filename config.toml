@@ -72,10 +72,6 @@ enableEmoji = true  # Shorthand emojis in content files - https://gohugo.io/func
   [[params.social]]
     name = "email"
     url = "mailto:jonathan@berrisch.biz"
-  [[params.social]]
-    name = "mastodon"
-    url = "https://wuppi.social/@BerriJ"
-    rel = "me"
 
 [menu]
 
