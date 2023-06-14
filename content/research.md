@@ -4,6 +4,19 @@ date = "2021-05-27"
 draft = false
 +++
 
+### Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices
+
+We apply CRPS Learning to multivariate data. We extend the smoothing methods proposed in the original CRPS Learning paper and we apply the methodology to probabilistic forecasts of multivariate day-ahead electricity prices.
+
+Paper: [Pre-Print](https://doi.org/10.48550/arXiv.2303.10019)
+
+
+### Modeling volatility and dependence of European carbon and energy prices
+
+We developed a VECM-GARCH-COPULA model for EUA, coal, natural gas and oil prices. We use maximum likelihood to estimate the model parameters and forecast the prices in a one-step process.
+
+Paper: [Finance Research Letters](https://doi.org/10.1016/j.frl.2022.103503) | [Pre-Print](https://doi.org/10.48550/arXiv.2208.14311)
+
 ### An Introduction to Rcpp Modules
 
 This is a talk I gave at the UseR! 2022 Conference. It covers the essentials on how to expose C++ classes to R using Rcpp Modules.
@@ -14,7 +27,7 @@ Presentations: [UseR!](../slides/22_06_useR)
 
 This paper presents a method for estimating high-resolution electricity peak demand given lower resolution data.
 
-Paper: [Pre-Print](https://arxiv.org/abs/2203.03342)
+Paper: [Energy and AI](https://doi.org/10.1016/j.egyai.2023.100236) | [Pre-Print](https://arxiv.org/abs/2203.03342)
 
 Presentations: [Brown-Bag](../slides/22_05_brown_bag) | [2022 ISF](../slides/22_07_isf) 
 
@@ -22,7 +35,7 @@ Presentations: [Brown-Bag](../slides/22_05_brown_bag) | [2022 ISF](../slides/22_
 
 This paper treats how online learning algorithms can be used for the pointwise combination of probabilistic forecasts.
 
-Paper: [Elsevier](https://doi.org/10.1016/j.jeconom.2021.11.008) | [Pre-Print](https://arxiv.org/abs/2102.00968)
+Paper: [Journal of Econometrics](https://doi.org/10.1016/j.jeconom.2021.11.008) | [Pre-Print](https://arxiv.org/abs/2102.00968)
 
 Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [2021 ISF](../slides/21_06_isf) | [2021 EPF Group](../slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../slides/22_02_rgs) [2022 ICCF](../slides/22_06_iccf)
 
@@ -30,7 +43,7 @@ Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [
 
 This paper presents price forecasting studies for two essential European natural-gas products.
 
-Paper: [Wiley](https://doi.org/10.1002/for.2853) | [Pre-Print](https://arxiv.org/abs/2010.06227) 
+Paper: [Journal of Forecasting](https://doi.org/10.1002/for.2853) | [Pre-Print](https://arxiv.org/abs/2010.06227) 
 
 # Projects
 
