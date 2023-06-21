@@ -17,6 +17,8 @@ We developed a VECM-GARCH-COPULA model for EUA, coal, natural gas and oil prices
 
 Paper: [Finance Research Letters](https://doi.org/10.1016/j.frl.2022.103503) | [Pre-Print](https://doi.org/10.48550/arXiv.2208.14311)
 
+Presentations: [Brown-Bag](../slides/23_06_brown_bag) 
+
 ### An Introduction to Rcpp Modules
 
 This is a talk I gave at the UseR! 2022 Conference. It covers the essentials on how to expose C++ classes to R using Rcpp Modules.
