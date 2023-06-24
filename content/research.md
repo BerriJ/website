@@ -8,7 +8,7 @@ draft = false
 
 We apply CRPS Learning to multivariate data. We extend the smoothing methods proposed in the original CRPS Learning paper and we apply the methodology to probabilistic forecasts of multivariate day-ahead electricity prices.
 
-Paper: [Pre-Print](https://doi.org/10.48550/arXiv.2303.10019)
+Paper: [Pre-Print](https://doi.org/10.48550/arXiv.2303.10019) | [2023 ECMI](../slides/23_06_ecmi) 
 
 
 ### Modeling volatility and dependence of European carbon and energy prices
