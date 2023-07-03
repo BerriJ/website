@@ -4,22 +4,22 @@ date = "2021-05-27"
 draft = false
 +++
 
-### Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices
+### Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices, 2023, Jonathan Berrisch & Florian Ziel
 
 We apply CRPS Learning to multivariate data. We extend the smoothing methods proposed in the original CRPS Learning paper and we apply the methodology to probabilistic forecasts of multivariate day-ahead electricity prices.
 
 Paper: [Pre-Print](https://doi.org/10.48550/arXiv.2303.10019) | [2023 ECMI](../slides/23_06_ecmi) 
 
 
-### Modeling volatility and dependence of European carbon and energy prices
+### Modeling volatility and dependence of European carbon and energy prices, 2023, Jonathan Berrisch & Sven Pappert & Antonia Arsova & Florian Ziel
 
 We developed a VECM-GARCH-COPULA model for EUA, coal, natural gas and oil prices. We use maximum likelihood to estimate the model parameters and forecast the prices in a one-step process.
 
 Paper: [Finance Research Letters](https://doi.org/10.1016/j.frl.2022.103503) | [Pre-Print](https://doi.org/10.48550/arXiv.2208.14311)
 
-Presentations: [Brown-Bag](../slides/23_06_brown_bag) 
+Presentations: [Brown-Bag](../slides/23_06_brown_bag) | [ARGE Masterclass](../slides/23_07_arge) 
 
-### An Introduction to Rcpp Modules
+### An Introduction to Rcpp Modules, 2022, Jonathan Berrisch
 
 This is a talk I gave at the UseR! 2022 Conference. It covers the essentials on how to expose C++ classes to R using Rcpp Modules.
 
