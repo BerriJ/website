@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>High-Resolution Peak Demand Estimation Using Generalized Additive Models and Deep Neural Networks</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="University of Duisburg-Essen" />
+    <meta name="date" content="2023-09-13" />
+    <script src="index_files/header-attrs-2.22/header-attrs.js"></script>
+    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="index_files/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="index_files/panelset-0.2.6/panelset.js"></script>
+    <script src="index_files/freezeframe-5.0.2/freezeframe.min.js"></script>
+    <script src="index_files/xaringanExtra-freezeframe-0.0.1/freezeframe-init.js"></script>
+    <script id="xaringanExtra-freezeframe-options" type="application/json">{"selector":"img[src$=\"gif\"]","trigger":"click","overlay":false,"responsive":true,"warnings":true}</script>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } },
+      });
+    </script>
+    <style>
+    .mjx-mrow a {
+      color: black;
+      pointer-events: none;
+      cursor: default;
+    }
+    </style>
+    <link rel="stylesheet" href="assets/sydney-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/sydney.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# High-Resolution Peak Demand Estimation Using Generalized Additive Models and Deep Neural Networks
+]
+.subtitle[
+## <strong>Jonathan Berrisch</strong>, Michał Narajewski, Florian Ziel
+]
+.author[
+### University of Duisburg-Essen
+]
+.date[
+### 2023-09-13
+]
+
+---
+
+
+
+
+
+
+
+
+
+name: motivation
+
+# Motivation
+
+.bold[High Resolution Peak Demand Estimation Challenge]
+
+- Organized by Western Power Distribution and Catapult Energy Systems
+- Does limited high-resolution monitoring help estimate future high-resolution peak loads? 
+
+The Objective:
+- Estimate minimum and maximum electricity load values (one-minute resolution)
+- Given data with only a 30-minute resolution
+- One single substation, every half-hour of September 2021
+
+Data:
+- From Nov. 2019 to Sept. 2021 (30-minute resolution)
+- MERRA-2 weather reanalysis data from five locations close to the substation
+
+---
+
+# Motivation
+
+### Location Overview
+
+&lt;img src="fig/map.svg" width="1000px" style="display: block; margin: auto;" /&gt;
+
+---
+  
+# Motivation
+
+### Data Overview
+
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Data
+
+.pull-left[
+
+Targets: `\(\Delta^{\min}_t\)` and `\(\Delta^{\max}_t\)`
+
+Possible explanatory variables:
+
+The *half-hourly* load: `\(L_t\)`
+
+Discrete second order central difference (DSOCD):
+
+`\(L_t'' = L_{t-1}-2L_t+L_{t+1}\)` 
+
+Deterministic components (to capture potential seasonal characteristics)
+- Daily `\(D_t\)` number of hours in a day
+- Weekly `\(W_t\)` number of hours in a week
+- Annual  `\(A_t\)` number of hours in a meteorological year with `\(365.24\)` days
+]
+
+.pull-right[
+
+Weather Inputs: Temperature, Windspeed (North / East), Solar, Humidity
+
+The Figure (next slide) shows how these variables correlate.
+- Lower triangle:
+  - Pearson's correlation
+- Upper triangle:
+  - Distance correlation
+
+Distance correlation: non-linear dependency measure that takes values in `\([0, 1]\)` and characterizes stochastic independence &lt;a id='cite-szekely2007measuring'&gt;&lt;/a&gt;&lt;a href='#bib-szekely2007measuring'&gt;Székely, Rizzo, and Bakirov (2007)&lt;/a&gt;.
+
+]
+
+---
+
+
+# Correlation
+
+&lt;img src="fig/cortikz_sa.svg" width="1000px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Data
+
+&lt;img src="fig/delta.svg" width="1000px" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Feature Set and Models
+
+.pull-left[
+
+&lt;/br&gt;
+
+Selected features based on preliminary analysis:
+
+&lt;/br&gt;
+
+| Variable type  | Included feature  | Number  |
+|---|---|---|
+| Lagged load  | `\(L_{t-1}\)`, `\(L_t\)`, `\(L_{t+1}\)`  |  3 |
+| Lagged DSOCD load  |  `\(\widetilde{L}_{t-4}'',\ldots , \widetilde{L}_{t+4}''\)` | 9  |
+| Weather inputs  | Temp, Solar, WindN, WindE, Press, Humid  | 6  |
+| Seasonal inputs  |  `\(D_t\)`, `\(W_t\)`, `\(A_t\)` | 3  |
+
+]
+
+.pull-right[
+
+&lt;/br&gt;
+
+Considered Models:
+
+- Generalized Additive Model (GAM)
+- Multilayer Perceptron Network (MLP)
+- Combinations of the above
+
+Competition Benchmark:
+
+.bold[Naive]
+
+`$$L_t^{\max} = L_t$$`
+`$$L_t^{\min} = L_t$$`
+
+]
+
+---
+
+# Modelling Approach: GAM
+
+### Generalized Additive Model (GAM)
+
+.pull-left[
+
+`\begin{equation}
+	\Delta^{m}_t = \sum_{i=1}^L f_i( X_{t,1}, \ldots, X_{t,N}) + \epsilon_t
+	\label{eq_GAM_gen}
+\end{equation}`
+where `\(m\in\{\min , \max\}\)`
+
+Traditional framework using cubic B-splines
+
+*GAM.full* Specification (with all 2-way interactions):
+
+`\begin{align}
+	\Delta^{m}_t =&amp; \sum_{i=1}^N b_{k_0}( X_{t,i} ) + \nonumber \\
+  &amp;\sum_{i=1}^N \sum_{j=1,j&gt;i}^N b_{k_1,k_2}( X_{t,i}, X_{t,j} ) +\epsilon_t
+	\label{eq_big_GAM}
+\end{align}`
+
+]
+
+.pull-right[
+
+`\(b_{k_0}\)` and `\(b_{k_1,k_2}\)` denote univariate and bivariate splines with `\(k_0\)`, and `\((k_1,k_2)\)` knots.
+Tensor interaction splines -&gt; only capture the joint effects.
+
+We set `\(k_0=27\)` and `\(k_1=k_2=9\)`. Thus, linear terms are specified by `\(27\)` parameters and bivariate terms by `\(81\)` parameters.
+
+*GAM.red*:
+
+Interactions with `\(L_t\)`, `\(\widetilde{L}_t''\)` and `\(\text{Solar}_t\)`.
+
+*GAM.simple*:
+`\begin{align}
+	\Delta^{m}_t =  b_{k_0}( L_t ) +  b_{k_0}( \widetilde{L}_t'') + b_{k_0}( \text{Solar}_t )
+	+\epsilon
+	\label{eq_simple_GAM}
+\end{align}`
+
+
+]
+
+---
+
+# Modelling Approach: MLP
+
+.pull-left[
+
+Multilayer Perceptron Network:
+&lt;img src="fig/nn_fig.svg" width="500px" style="display: block; margin: auto;" /&gt;
+
+Hyperparameters are tuned using OPTUNA Python package &lt;a id='cite-akiba2019optuna'&gt;&lt;/a&gt;&lt;a href='#bib-akiba2019optuna'&gt;Akiba, Sano, Yanase, Ohta, and Koyama (2019)&lt;/a&gt;
+
+]
+
+.pull-right[
+- Input feature selection
+- Number of hidden layers -- either 2 or 3
+- Dropout layer -- whether to use it after the input layer and, if yes, at what rate.
+- Activation functions in the hidden layers: elu, relu, sigmoid, softmax, softplus, and tanh
+- Number of neurons in the hidden layer drawn on an exp-scale from `\([4,128]\)`
+- `\(L_1\)` regularization -- whether to use it on the hidden layers and, if yes, at what rate.
+- Learning rate for the Adam optimization algorithm drawn on an exp-scale from `\(\left(10^{-5}, 10^{-1}\right)\)` interval
+]
+
+---
+
+# GAM Parameter Significance
+
+&lt;/br&gt;
+
+.pull-left[
+
+|		Min                             | EDF                         | F    | Max                             | EDF  | F    |
+| --- |
+|		`\(L_t\)`                                    | 9.5                         | 8.9  | `\(L_t\)`                                    | 10.8 | 17.6 |
+|		`\(\widetilde{L}_{t-1}''\)`                     | 8.8                         | 4.4  | `\(\widetilde{L}_{t-2}''\)`                     | 6.7  | 4.9  |
+|		`\(\widetilde{L}_{t+1}''\)`                     | 8.4                         | 4.8  | `\(L_{t-1}\)`                                | 6.3  | 6.9  |
+|		`\(\widetilde{L}_{t}''\)`                       | 8.2                         | 4.6  | `\(L_{t+1}\)`                                | 5.4  | 5.0  |
+|		Humid                                    | 6.1                         | 3.7  | `\(D_t\)`                                    | 4.8  | 3.1  |
+|		WindE                                    | 5.1                         | 8.9  | Temp                                     | 4.1  | 11.5 |
+|		`\(A_t\)`                                    | 4.7                         | 4.9  | Solar                                    | 4.0  | 5.5  |
+|		WindN                                    | 4.2                         | 8.5  | WindE                                    | 3.8  | 5.8  |
+|		Temp                                     | 3.5                         | 3.6  | `\(\widetilde{L}_{t+4}''\)`                     | 3.2  | 2.1  |
+|		`\(L_{t-1}\)`                                | 3.3                         | 1.3  | `\(\widetilde{L}_{t+1}''\)`                     | 3.1  | 2.2  |
+
+]
+
+.pull-right[
+  
+
+
+|		Min                             | EDF                         | F    | Max                             | EDF  | F    |
+| --- |
+|		`\(L_t\)`, `\(A_t\)`                             | 26.7                        | 7.8  | `\(L_t\)`, `\(A_t\)`                             | 37.8 | 28.1 |
+|		`\(L_t\)`, Solar                             | 20.7                        | 11.2 | `\(L_t\)`, `\(D_t\)`                             | 25.1 | 20.6 |
+|		`\(L_t\)`, `\(D_t\)`                             | 18.3                        | 8.2  | Solar, `\(A_t\)`                             | 15.4 | 6.4  |
+|		`\(L_t\)`, `\(L_{t+1}\)`                         | 17.1                        | 4.0  | `\(\widetilde{L}_{t}''\)`, `\(\widetilde{L}_{t-1}''\)` | 14.9 | 6.5  |
+|		`\(\widetilde{L}_{t}''\)`, `\(\widetilde{L}_{t-1}''\)` | 13.5                        | 2.5  | Solar, `\(D_t\)`                             | 11.0 | 8.5  |
+|		`\(L_t\)`, Temp                              | 13.3                        | 3.1  | `\(\widetilde{L}_{t}''\)`, `\(\widetilde{L}_{t+1}''\)` | 11.0 | 2.4  |
+|		`\(L_t\)`, `\(L_{t-1}\)`                         | 13.0                        | 4.9  | `\(\widetilde{L}_{t}''\)`, `\(\widetilde{L}_{t+2}''\)` | 10.7 | 2.8  |
+|		`\(\widetilde{L}_{t}''\)`, `\(\widetilde{L}_{t+1}''\)` | 12.1                        | 2.3  | `\(L_t\)`, Solar                             | 10.0 | 2.9  |
+|		`\(L_t\)`, `\(W_t\)`                             | 11.7                        | 3.0  | `\(\widetilde{L}_{t}''\)`, Temp                 | 9.5  | 3.4  |
+|		`\(\widetilde{L}_{t}''\)`, `\(\widetilde{L}_{t+2}''\)` | 11.4                        | 2.9  | `\(L_t\)`, WindE                             | 9.3  | 2.5  |
+
+]
+
+---
+
+# MLP Feature Importance
+
+&lt;img src="fig/input_feature_freq.svg" width="1000px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Study Design and Evaluation
+
+&lt;/br&gt;
+
+.pull-left[
+
+Rolling Window Forecasting Study:
+- Length: 12 Months (10/2020 - 09/2021)
+- 1-Month shifts
+- Evaluation by RMSE
+
+Competition Design:
+- Only evaluating 09/2021
+- Rank base on Score (relative RMSE)
+
+`\begin{align}
+	\text{Score} &amp; = \text{RMSE}(\text{Model}) / \text{RMSE}(\textbf{naive}).
+\end{align}`
+
+]
+
+.pull-right[
+
+Considered Models:
+
+- .bold[GAM.full]
+- .bold[GAM.red]
+- .bold[DNN]
+- .bold[naive]
+- .bold[Combination of GAM.full, GAM.red, and DNN]
+
+Two additional GAM models for diagnostic purposes:
+
+- .bold[GAM.simple]
+- .bold[GAM.no.Weather]
+
+
+]
+
+---
+
+# Results 
+
+&lt;/br&gt;
+&lt;/br&gt;
+
+<div id="bcatjjdkab" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bcatjjdkab table {
+  font-family: 'LM Roman 10', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#bcatjjdkab thead, #bcatjjdkab tbody, #bcatjjdkab tfoot, #bcatjjdkab tr, #bcatjjdkab td, #bcatjjdkab th {
+  border-style: none;
+}
+
+#bcatjjdkab p {
+  margin: 0;
+  padding: 0;
+}
+
+#bcatjjdkab .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#bcatjjdkab .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bcatjjdkab .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bcatjjdkab .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bcatjjdkab .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bcatjjdkab .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bcatjjdkab .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bcatjjdkab .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bcatjjdkab .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#bcatjjdkab .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#bcatjjdkab .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bcatjjdkab .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bcatjjdkab .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bcatjjdkab .gt_row {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bcatjjdkab .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bcatjjdkab .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bcatjjdkab .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bcatjjdkab .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#bcatjjdkab .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bcatjjdkab .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bcatjjdkab .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bcatjjdkab .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bcatjjdkab .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bcatjjdkab .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bcatjjdkab .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bcatjjdkab .gt_left {
+  text-align: left;
+}
+
+#bcatjjdkab .gt_center {
+  text-align: center;
+}
+
+#bcatjjdkab .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bcatjjdkab .gt_font_normal {
+  font-weight: normal;
+}
+
+#bcatjjdkab .gt_font_bold {
+  font-weight: bold;
+}
+
+#bcatjjdkab .gt_font_italic {
+  font-style: italic;
+}
+
+#bcatjjdkab .gt_super {
+  font-size: 65%;
+}
+
+#bcatjjdkab .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#bcatjjdkab .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bcatjjdkab .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#bcatjjdkab .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#bcatjjdkab .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#bcatjjdkab .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#bcatjjdkab .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" style="table-layout: fixed;" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+  <colgroup>
+    <col/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col style="width:65px;"/>
+    <col/>
+    <col style="width:65px;"/>
+  </colgroup>
+  <thead>
+    
+    <tr class="gt_col_headings">
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Overall">Overall</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="20/10">20/10</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="20/11">20/11</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="20/12">20/12</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/1">21/1</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/2">21/2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/3">21/3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/4">21/4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/5">21/5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/6">21/6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/7">21/7</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/8">21/8</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="21/9">21/9</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id=" "> </th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="font-weight: bold;" scope="col" id="Avg">Avg</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><th id="stub_1_1" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">GAM.full</th>
+<td headers="stub_1_1 20/10" class="gt_row gt_center" style="background-color: #8CC767; color: #000000;">.1239<br><small>(56.3)</td>
+<td headers="stub_1_1 20/11" class="gt_row gt_center" style="background-color: #95CA66; color: #000000;">.0703<br><small>(58.5)</td>
+<td headers="stub_1_1 20/12" class="gt_row gt_center" style="background-color: #86C467; color: #000000;">.0497<br><small>(56.6)</td>
+<td headers="stub_1_1 21/1" class="gt_row gt_center" style="background-color: #7EC268; color: #000000;">.0532<br><small>(57.6)</td>
+<td headers="stub_1_1 21/2" class="gt_row gt_center" style="background-color: #80C268; color: #000000;">.0988<br><small>(55.4)</td>
+<td headers="stub_1_1 21/3" class="gt_row gt_center" style="background-color: #79C068; color: #000000;">.1202<br><small>(57.8)</td>
+<td headers="stub_1_1 21/4" class="gt_row gt_center" style="background-color: #6EBC69; color: #000000;">.1447<br><small>(57.2)</td>
+<td headers="stub_1_1 21/5" class="gt_row gt_center" style="background-color: #E5E45C; color: #000000;">.1746<br><small>(56.7)</td>
+<td headers="stub_1_1 21/6" class="gt_row gt_center" style="background-color: #6CBC6A; color: #000000;">.1368<br><small>(56.3)</td>
+<td headers="stub_1_1 21/7" class="gt_row gt_center" style="background-color: #94CA66; color: #000000;">.1537<br><small>(53.9)</td>
+<td headers="stub_1_1 21/8" class="gt_row gt_center" style="background-color: #7AC068; color: #000000;">.1383<br><small>(60.2)</td>
+<td headers="stub_1_1 21/9" class="gt_row gt_center" style="background-color: #68BB6A; color: #000000;">.1163<br><small>(56.9)</td>
+<td headers="stub_1_1" class="gt_row gt_center" style="border-left-width: 1px; border-left-style: solid; border-left-color: transparent; border-right-width: 1px; border-right-style: solid; border-right-color: transparent; border-top-width: 1px; border-top-style: solid; border-top-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: transparent;"></td>
+<td headers="stub_1_1 Avg" class="gt_row gt_center" style="background-color: #84C467; color: #000000;">.1150<br><small>(56.9)</td></tr>
+    <tr><th id="stub_1_2" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">GAM.red</th>
+<td headers="stub_1_2 20/10" class="gt_row gt_center" style="background-color: #90C866; color: #000000;">.1241<br><small>(56.2)</td>
+<td headers="stub_1_2 20/11" class="gt_row gt_center" style="background-color: #8CC667; color: #000000;">.0700<br><small>(58.7)</td>
+<td headers="stub_1_2 20/12" class="gt_row gt_center" style="background-color: #81C368; color: #000000;">.0496<br><small>(56.6)</td>
+<td headers="stub_1_2 21/1" class="gt_row gt_center" style="background-color: #90C866; color: #000000;">.0536<br><small>(57.3)</td>
+<td headers="stub_1_2 21/2" class="gt_row gt_center" style="background-color: #8FC866; color: #000000;">.0994<br><small>(55.2)</td>
+<td headers="stub_1_2 21/3" class="gt_row gt_center" style="background-color: #77C069; color: #000000;">.1201<br><small>(57.8)</td>
+<td headers="stub_1_2 21/4" class="gt_row gt_center" style="background-color: #90C866; color: #000000;">.1467<br><small>(56.6)</td>
+<td headers="stub_1_2 21/5" class="gt_row gt_center" style="background-color: #EAE65B; color: #000000;">.1750<br><small>(56.6)</td>
+<td headers="stub_1_2 21/6" class="gt_row gt_center" style="background-color: #8DC767; color: #000000;">.1385<br><small>(55.8)</td>
+<td headers="stub_1_2 21/7" class="gt_row gt_center" style="background-color: #B3D463; color: #000000;">.1554<br><small>(53.4)</td>
+<td headers="stub_1_2 21/8" class="gt_row gt_center" style="background-color: #6BBC6A; color: #000000;">.1374<br><small>(60.5)</td>
+<td headers="stub_1_2 21/9" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1162<br><small>(56.9)</td>
+<td headers="stub_1_2" class="gt_row gt_center" style="border-left-width: 1px; border-left-style: solid; border-left-color: transparent; border-right-width: 1px; border-right-style: solid; border-right-color: transparent; border-top-width: 1px; border-top-style: solid; border-top-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: transparent;"></td>
+<td headers="stub_1_2 Avg" class="gt_row gt_center" style="background-color: #8EC766; color: #000000;">.1155<br><small>(56.7)</td></tr>
+    <tr><th id="stub_1_3" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">DNN</th>
+<td headers="stub_1_3 20/10" class="gt_row gt_center" style="background-color: #7AC068; color: #000000;">.1230<br><small>(56.6)</td>
+<td headers="stub_1_3 20/11" class="gt_row gt_center" style="background-color: #98CB65; color: #000000;">.0704<br><small>(58.4)</td>
+<td headers="stub_1_3 20/12" class="gt_row gt_center" style="background-color: #B7D562; color: #000000;">.0507<br><small>(55.7)</td>
+<td headers="stub_1_3 21/1" class="gt_row gt_center" style="background-color: #B8D562; color: #000000;">.0545<br><small>(56.6)</td>
+<td headers="stub_1_3 21/2" class="gt_row gt_center" style="background-color: #E4E45C; color: #000000;">.1027<br><small>(53.7)</td>
+<td headers="stub_1_3 21/3" class="gt_row gt_center" style="background-color: #D9E05E; color: #000000;">.1251<br><small>(56.1)</td>
+<td headers="stub_1_3 21/4" class="gt_row gt_center" style="background-color: #DDE25D; color: #000000;">.1514<br><small>(55.2)</td>
+<td headers="stub_1_3 21/5" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1653<br><small>(59.0)</td>
+<td headers="stub_1_3 21/6" class="gt_row gt_center" style="background-color: #FFE54E; color: #000000;">.1474<br><small>(52.9)</td>
+<td headers="stub_1_3 21/7" class="gt_row gt_center" style="background-color: #96CA66; color: #000000;">.1538<br><small>(53.9)</td>
+<td headers="stub_1_3 21/8" class="gt_row gt_center" style="background-color: #B6D562; color: #000000;">.1422<br><small>(59.1)</td>
+<td headers="stub_1_3 21/9" class="gt_row gt_center" style="background-color: #EBE65B; color: #000000;">.1225<br><small>(54.6)</td>
+<td headers="stub_1_3" class="gt_row gt_center" style="border-left-width: 1px; border-left-style: solid; border-left-color: transparent; border-right-width: 1px; border-right-style: solid; border-right-color: transparent; border-top-width: 1px; border-top-style: solid; border-top-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: transparent;"></td>
+<td headers="stub_1_3 Avg" class="gt_row gt_center" style="background-color: #B6D562; color: #000000;">.1174<br><small>(56.0)</td></tr>
+    <tr><th id="stub_1_4" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Combination</th>
+<td headers="stub_1_4 20/10" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1221<br><small>(56.9)</td>
+<td headers="stub_1_4 20/11" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.0689<br><small>(59.3)</td>
+<td headers="stub_1_4 20/12" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.0491<br><small>(57.1)</td>
+<td headers="stub_1_4 21/1" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.0527<br><small>(58.0)</td>
+<td headers="stub_1_4 21/2" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.0979<br><small>(55.8)</td>
+<td headers="stub_1_4 21/3" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1193<br><small>(58.1)</td>
+<td headers="stub_1_4 21/4" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1443<br><small>(57.3)</td>
+<td headers="stub_1_4 21/5" class="gt_row gt_center" style="background-color: #92C966; color: #000000;">.1684<br><small>(58.2)</td>
+<td headers="stub_1_4 21/6" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1365<br><small>(56.4)</td>
+<td headers="stub_1_4 21/7" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1512<br><small>(54.6)</td>
+<td headers="stub_1_4 21/8" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1371<br><small>(60.6)</td>
+<td headers="stub_1_4 21/9" class="gt_row gt_center" style="background-color: #6BBB6A; color: #000000;">.1164<br><small>(56.9)</td>
+<td headers="stub_1_4" class="gt_row gt_center" style="border-left-width: 1px; border-left-style: solid; border-left-color: transparent; border-right-width: 1px; border-right-style: solid; border-right-color: transparent; border-top-width: 1px; border-top-style: solid; border-top-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: transparent;"></td>
+<td headers="stub_1_4 Avg" class="gt_row gt_center" style="background-color: #66BA6A; color: #000000;">.1137<br><small>(57.4)</td></tr>
+    <tr><th id="stub_1_5" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">GAM.noWeather</th>
+<td headers="stub_1_5 20/10" class="gt_row gt_center" style="background-color: #FFEC57; color: #000000;">.1301<br><small>(54.1)</td>
+<td headers="stub_1_5 20/11" class="gt_row gt_center" style="background-color: #A2CE64; color: #000000;">.0707<br><small>(58.2)</td>
+<td headers="stub_1_5 20/12" class="gt_row gt_center" style="background-color: #BCD762; color: #000000;">.0508<br><small>(55.6)</td>
+<td headers="stub_1_5 21/1" class="gt_row gt_center" style="background-color: #83C368; color: #000000;">.0533<br><small>(57.5)</td>
+<td headers="stub_1_5 21/2" class="gt_row gt_center" style="background-color: #FFE44D; color: #000000;">.1058<br><small>(52.3)</td>
+<td headers="stub_1_5 21/3" class="gt_row gt_center" style="background-color: #DCE15D; color: #000000;">.1253<br><small>(56.0)</td>
+<td headers="stub_1_5 21/4" class="gt_row gt_center" style="background-color: #97CA66; color: #000000;">.1471<br><small>(56.5)</td>
+<td headers="stub_1_5 21/5" class="gt_row gt_center" style="background-color: #FFE048; color: #000000;">.1822<br><small>(54.8)</td>
+<td headers="stub_1_5 21/6" class="gt_row gt_center" style="background-color: #AAD164; color: #000000;">.1401<br><small>(55.3)</td>
+<td headers="stub_1_5 21/7" class="gt_row gt_center" style="background-color: #E6E55C; color: #000000;">.1584<br><small>(52.5)</td>
+<td headers="stub_1_5 21/8" class="gt_row gt_center" style="background-color: #B9D662; color: #000000;">.1424<br><small>(59.1)</td>
+<td headers="stub_1_5 21/9" class="gt_row gt_center" style="background-color: #FFE852; color: #000000;">.1249<br><small>(53.7)</td>
+<td headers="stub_1_5" class="gt_row gt_center" style="border-left-width: 1px; border-left-style: solid; border-left-color: transparent; border-right-width: 1px; border-right-style: solid; border-right-color: transparent; border-top-width: 1px; border-top-style: solid; border-top-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: transparent;"></td>
+<td headers="stub_1_5 Avg" class="gt_row gt_center" style="background-color: #DDE25D; color: #000000;">.1193<br><small>(55.3)</td></tr>
+    <tr><th id="stub_1_6" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">GAM.simple</th>
+<td headers="stub_1_6 20/10" class="gt_row gt_center" style="background-color: #FFB326; color: #000000;">.1531<br><small>(46.0)</td>
+<td headers="stub_1_6 20/11" class="gt_row gt_center" style="background-color: #FFA428; color: #000000;">.0940<br><small>(44.5)</td>
+<td headers="stub_1_6 20/12" class="gt_row gt_center" style="background-color: #FFC127; color: #000000;">.0584<br><small>(49.0)</td>
+<td headers="stub_1_6 21/1" class="gt_row gt_center" style="background-color: #FFB126; color: #000000;">.0672<br><small>(46.5)</td>
+<td headers="stub_1_6 21/2" class="gt_row gt_center" style="background-color: #FFA826; color: #000000;">.1267<br><small>(42.9)</td>
+<td headers="stub_1_6 21/3" class="gt_row gt_center" style="background-color: #FFB526; color: #000000;">.1500<br><small>(47.3)</td>
+<td headers="stub_1_6 21/4" class="gt_row gt_center" style="background-color: #FFB626; color: #000000;">.1797<br><small>(46.8)</td>
+<td headers="stub_1_6 21/5" class="gt_row gt_center" style="background-color: #FFB526; color: #000000;">.2093<br><small>(48.1)</td>
+<td headers="stub_1_6 21/6" class="gt_row gt_center" style="background-color: #FFAF26; color: #000000;">.1733<br><small>(44.7)</td>
+<td headers="stub_1_6 21/7" class="gt_row gt_center" style="background-color: #FFB226; color: #000000;">.1873<br><small>(43.8)</td>
+<td headers="stub_1_6 21/8" class="gt_row gt_center" style="background-color: #FFC127; color: #000000;">.1671<br><small>(52.0)</td>
+<td headers="stub_1_6 21/9" class="gt_row gt_center" style="background-color: #FFBB27; color: #000000;">.1413<br><small>(47.6)</td>
+<td headers="stub_1_6" class="gt_row gt_center" style="border-left-width: 1px; border-left-style: solid; border-left-color: transparent; border-right-width: 1px; border-right-style: solid; border-right-color: transparent; border-top-width: 1px; border-top-style: solid; border-top-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: transparent;"></td>
+<td headers="stub_1_6 Avg" class="gt_row gt_center" style="background-color: #FFB526; color: #000000;">.1423<br><small>(46.7)</td></tr>
+    <tr><th id="stub_1_7" scope="row" class="gt_row gt_center gt_stub" style="font-weight: bold;">Naive</th>
+<td headers="stub_1_7 20/10" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.2833</td>
+<td headers="stub_1_7 20/11" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.1693</td>
+<td headers="stub_1_7 20/12" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.1144</td>
+<td headers="stub_1_7 21/1" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.1255</td>
+<td headers="stub_1_7 21/2" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.2217</td>
+<td headers="stub_1_7 21/3" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.2847</td>
+<td headers="stub_1_7 21/4" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.3380</td>
+<td headers="stub_1_7 21/5" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.4029</td>
+<td headers="stub_1_7 21/6" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.3131</td>
+<td headers="stub_1_7 21/7" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.3334</td>
+<td headers="stub_1_7 21/8" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.3478</td>
+<td headers="stub_1_7 21/9" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.2699</td>
+<td headers="stub_1_7" class="gt_row gt_center" style="border-left-width: 1px; border-left-style: solid; border-left-color: transparent; border-right-width: 1px; border-right-style: solid; border-right-color: transparent; border-top-width: 1px; border-top-style: solid; border-top-color: transparent; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: transparent;"></td>
+<td headers="stub_1_7 Avg" class="gt_row gt_center" style="background-color: #EE5250; color: #FFFFFF;">.2670</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+
+---
+
+name: wrap
+
+# Wrap-Up
+
+.pull-left[
+
+Estimating high-resolution elecricity peak demand using lower-resolution data:
+
+- .bold[GAM.full] and .bold[GAM.red] perform similar
+- .bold[DNN] beats .bold[GAM.full] in some Months
+- .bold[Combination of GAM.full, GAM.red, and DNN] performs best
+
+- Weather variables improve the skill score by 1.5 percentage points on average
+- .bold[DNN] performs better at predicting maximum peak loads
+
+<svg aria-hidden="true" role="img" viewBox="0 0 512 512" style="height:1em;width:1em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:currentColor;overflow:visible;position:relative;"><path d="M168 80c-13.3 0-24 10.7-24 24V408c0 8.4-1.4 16.5-4.1 24H440c13.3 0 24-10.7 24-24V104c0-13.3-10.7-24-24-24H168zM72 480c-39.8 0-72-32.2-72-72V112C0 98.7 10.7 88 24 88s24 10.7 24 24V408c0 13.3 10.7 24 24 24s24-10.7 24-24V104c0-39.8 32.2-72 72-72H440c39.8 0 72 32.2 72 72V408c0 39.8-32.2 72-72 72H72zM176 136c0-13.3 10.7-24 24-24h96c13.3 0 24 10.7 24 24v80c0 13.3-10.7 24-24 24H200c-13.3 0-24-10.7-24-24V136zm200-24h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80h32c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24zM200 272H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24zm0 80H408c13.3 0 24 10.7 24 24s-10.7 24-24 24H200c-13.3 0-24-10.7-24-24s10.7-24 24-24z"/></svg> &lt;a id='cite-berrisch2023high'&gt;&lt;/a&gt;&lt;a href='#bib-berrisch2023high'&gt;Berrisch, Narajewski, and Ziel (2023)&lt;/a&gt;
+
+]
+
+.pull-right[
+
+We won the competition.
+
+- 42.6% vs. 43.6% (second place)
+- Using slightly different model
+
+.center[
+&lt;center&gt;
+&lt;img src="frame.png"&gt;
+&lt;/center&gt;
+[berrisch.biz/slides/23_09_stat_woche](https://berrisch.biz/slides/23_09_stat_woche/)
+]
+
+]
+
+
+&lt;a href="https://github.com/BerriJ" class="github-corner" aria-label="View source on Github"&gt;&lt;svg width="80" height="80" viewBox="0 0 250 250" style="fill:#f2f2f2; color:#212121; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"&gt;&lt;path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"&gt;&lt;/path&gt;&lt;path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"&gt;&lt;/path&gt;&lt;path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/a&gt;&lt;style&gt;.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}&lt;/style&gt;
+
+---
+name:references
+
+# References 1
+
+&lt;p&gt;&lt;cite&gt;&lt;a id='bib-akiba2019optuna'&gt;&lt;/a&gt;&lt;a href="#cite-akiba2019optuna"&gt;Akiba, T., S. Sano, T. Yanase, et al.&lt;/a&gt;
+(2019).
+&amp;ldquo;Optuna: A next-generation hyperparameter optimization framework&amp;rdquo;.
+In: 
+&lt;em&gt;Proceedings of the 25th ACM SIGKDD international conference on knowledge discovery &amp;amp; data mining&lt;/em&gt;.
+, pp. 2623&amp;ndash;2631.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&lt;a id='bib-berrisch2023high'&gt;&lt;/a&gt;&lt;a href="#cite-berrisch2023high"&gt;Berrisch, J., M. Narajewski, and F. Ziel&lt;/a&gt;
+(2023).
+&amp;ldquo;High-resolution peak demand estimation using generalized additive models and deep neural networks&amp;rdquo;.
+In: &lt;em&gt;Energy and AI&lt;/em&gt; 13, p. 100236.&lt;/cite&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;cite&gt;&lt;a id='bib-szekely2007measuring'&gt;&lt;/a&gt;&lt;a href="#cite-szekely2007measuring"&gt;Székely, G. J., M. L. Rizzo, and N. K. Bakirov&lt;/a&gt;
+(2007).
+&amp;ldquo;Measuring and testing dependence by correlation of distances&amp;rdquo;.
+In: &lt;em&gt;The annals of statistics&lt;/em&gt; 35.6, pp. 2769&amp;ndash;2794.&lt;/cite&gt;&lt;/p&gt;
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="assets/remark-zoom.js"></script>
+<script src="https://platform.twitter.com/widgets.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9",
+"navigation": {
+"scroll": true
+}
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
