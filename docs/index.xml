@@ -18,9 +18,9 @@
       <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://berrisch.biz/research/</guid>
-      <description>Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices, 2023, Jonathan Berrisch &amp;amp; Florian Ziel We apply CRPS Learning to multivariate data. We extend the smoothing methods proposed in the original CRPS Learning paper and we apply the methodology to probabilistic forecasts of multivariate day-ahead electricity prices.
-Paper: Pre-Print | 2023 ECMI
-Modeling volatility and dependence of European carbon and energy prices, 2023, Jonathan Berrisch &amp;amp; Sven Pappert &amp;amp; Antonia Arsova &amp;amp; Florian Ziel We developed a VECM-GARCH-COPULA model for EUA, coal, natural gas and oil prices.</description>
+      <description>rcpptimer: Rcpp Tic-Toc Timer with OpenMP Support We developed &amp;lsquo;cpptimer&amp;rsquo;, a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, &amp;lsquo;cpptimer&amp;rsquo; supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times. Being a header-only library, &amp;lsquo;cpptimer&amp;rsquo; is easily bindable to higher-level languages.
+2024 ISF
+Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices, 2023, Jonathan Berrisch &amp;amp; Florian Ziel We apply CRPS Learning to multivariate data.</description>
     </item>
     
     <item>
