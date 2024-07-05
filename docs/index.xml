@@ -19,7 +19,7 @@
       
       <guid>https://berrisch.biz/research/</guid>
       <description>rcpptimer: Rcpp Tic-Toc Timer with OpenMP Support We developed &amp;lsquo;cpptimer&amp;rsquo;, a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, &amp;lsquo;cpptimer&amp;rsquo; supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times. Being a header-only library, &amp;lsquo;cpptimer&amp;rsquo; is easily bindable to higher-level languages.
-2024 ISF
+2024 ISF | 2024 useR!
 Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices, 2023, Jonathan Berrisch &amp;amp; Florian Ziel We apply CRPS Learning to multivariate data.</description>
     </item>
     

@@ -8,7 +8,7 @@ draft = false
 
 We developed 'cpptimer', a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, 'cpptimer' supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times. Being a header-only library, 'cpptimer' is easily bindable to higher-level languages.
 
-[2024 ISF](../slides/24_07_isf) 
+[2024 ISF](../slides/24_07_isf) | [2024 useR!](../slides/24_07_user) 
 
 ### Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices, 2023, Jonathan Berrisch & Florian Ziel
 
