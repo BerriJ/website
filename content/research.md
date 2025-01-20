@@ -4,6 +4,12 @@ date = "2021-05-27"
 draft = false
 +++
 
+### DDIOPPOSUC: Data Driven Identification of Power Plant Operation States Using Clustering
+
+This is in a very early stage and was presented at a PHD Workshop in January 2025.
+
+[2024_PHD](../slides/25_01_phd)
+
 ### rcpptimer: Rcpp Tic-Toc Timer with OpenMP Support
 
 We developed 'cpptimer', a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, 'cpptimer' supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times. Being a header-only library, 'cpptimer' is easily bindable to higher-level languages.
