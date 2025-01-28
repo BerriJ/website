@@ -18,8 +18,8 @@
       <pubDate>Thu, 27 May 2021 00:00:00 +0000</pubDate>
       
       <guid>https://berrisch.biz/research/</guid>
-      <description>DDIOPPOSUC: Data Driven Identification of Power Plant Operation States Using Clustering This is in a very early stage and was presented at a PHD Workshop in January 2025.
-2024_PHD
+      <description>Data Driven Identification of Power Plant Operation States Using Clustering This is in a very early stage and was presented at a PHD Workshop in January 2025.
+Presentations: 2025_PHD
 rcpptimer: Rcpp Tic-Toc Timer with OpenMP Support We developed &amp;lsquo;cpptimer&amp;rsquo;, a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, &amp;lsquo;cpptimer&amp;rsquo; supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times.</description>
     </item>
     

@@ -4,17 +4,25 @@ date = "2021-05-27"
 draft = false
 +++
 
-### DDIOPPOSUC: Data Driven Identification of Power Plant Operation States Using Clustering
+### Data Driven Identification of Power Plant Operation States Using Clustering
 
 This is in a very early stage and was presented at a PHD Workshop in January 2025.
 
-[2024_PHD](../slides/25_01_phd)
+Presentations: [2025_PHD](../slides/25_01_phd)
 
 ### rcpptimer: Rcpp Tic-Toc Timer with OpenMP Support
 
 We developed 'cpptimer', a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, 'cpptimer' supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times. Being a header-only library, 'cpptimer' is easily bindable to higher-level languages.
 
-[2024 ISF](../slides/24_07_isf) | [2024 useR!](../slides/24_07_user) 
+Paper: [Pre-Print](https://arxiv.org/abs/2501.15856)
+
+Presentations: [2024 ISF](../slides/24_07_isf) | [2024 useR!](../slides/24_07_user) 
+
+### Online Distributional Regression, 2024, Simon Hirsch, Jonathan Berrisch, Florian Ziel
+
+We present a methodology for online estimation of regularized, linear distributional models. The proposed algorithm is based on a combination of recent developments for the online estimation of LASSO models and the well-known GAMLSS framework. We provide a case study on day-ahead electricity price forecasting, in which we show the competitive performance of the incremental estimation combined with strongly reduced computational effort. Our algorithms are implemented in a computationally efficient Python package. 
+
+Paper: [Pre-Print](https://arxiv.org/abs/2407.08750)
 
 ### Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices, 2023, Jonathan Berrisch & Florian Ziel
 
