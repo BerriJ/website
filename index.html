@@ -7,8 +7,8 @@
   <meta name="description" content="Jonathan Berrisch - Data Scientist and Ph.D. Student">
   <title>Jonathan Berrisch</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Font Awesome for social icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -18,22 +18,26 @@
       <p class="subtitle">Postdoctoral researcher at University of Duisburg-Essen and Nix(OS) enthusiast.</p>
 
       <div class="page-links">
-        <a href="projects.html"><i class="fas fa-folder-open"></i> Projects</a>
-        <a href="cv/index.html"><i class="fas fa-file-alt"></i> CV</a>
+        <a href="projects.html"><i data-lucide="folder-open"></i> Projects</a>
+        <a href="cv/index.html"><i data-lucide="file-text"></i> CV</a>
       </div>
 
       <div class="social-links">
         <a href="https://orcid.org/0000-0002-4944-9074" target="_blank" rel="noopener" title="ORCID">
-          <i class="fab fa-orcid"></i>
+          <i data-lucide="book-open"></i>
+          <span class="social-label">ORCID</span>
         </a>
         <a href="https://github.com/BerriJ" target="_blank" rel="noopener" title="GitHub">
-          <i class="fab fa-github"></i>
+          <i data-lucide="github"></i>
+          <span class="social-label">GitHub</span>
         </a>
         <a href="https://stackoverflow.com/users/9551847/berrij" target="_blank" rel="noopener" title="Stack Overflow">
-          <i class="fab fa-stack-overflow"></i>
+          <i data-lucide="layers"></i>
+          <span class="social-label">Stack Overflow</span>
         </a>
         <a href="mailto:jonathan@berrisch.biz" title="Email">
-          <i class="fas fa-envelope"></i>
+          <i data-lucide="mail"></i>
+          <span class="social-label">Email</span>
         </a>
       </div>
     </div>
@@ -45,6 +49,10 @@
           rel="noopener">CC BY-NC 4.0</a></p>
     </div>
   </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
 </body>
 
 </html>

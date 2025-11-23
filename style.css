@@ -133,11 +133,38 @@ body {
 .social-links a {
   color: var(--primary-color);
   transition: transform 0.3s, color 0.3s;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  position: relative;
 }
 
 .social-links a:hover {
   transform: translateY(-3px);
   color: var(--link-color);
+}
+
+.social-links a i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-label {
+  font-size: 0.875rem;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 500;
+  position: absolute;
+  top: 100%;
+  margin-top: 0.5rem;
+  white-space: nowrap;
+}
+
+.social-links a:hover .social-label {
+  opacity: 1;
 }
 
 /* Content Pages */
