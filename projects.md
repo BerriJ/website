@@ -4,6 +4,24 @@ date = "2021-05-27"
 draft = false
 +++
 
+### profoc - An R Package for Probabilistic Forecast Combination
+
+This package implements methods which are proposed and discussed in [CRPS Learning](https://arxiv.org/abs/2102.00968).
+
+[CRAN](https://cran.rstudio.com/web/packages/profoc/index.html) | [GitHub](https://github.com/BerriJ/profoc) | [Documentation](https://profoc.berrisch.biz/)
+
+### dccpp - An R Package for fast computation of the distance covariance and distance correlation
+
+The computation cost is only O(n log(n)) for the distance correlation (see Chaudhuri, Hu, 2019, arXiv, elsevier). The functions are written entirely in C++ to speed up the computation.
+
+[CRAN](https://cran.r-project.org/web/packages/dccpp/index.html) | [GitHub](https://github.com/BerriJ/dccpp) | [Documentation](https://dccpp.berrisch.biz/)
+
+### sstudentt - A python package implementing the skewed-student-t distribution
+
+This package implements the skewed student-t distribution in python. Parameterized as described in Wurtz et. al (2006) [1]. An implementation in R is already existent [2].
+
+[PyPi](https://pypi.org/project/sstudentt/) | [Github](https://github.com/BerriJ/sstudentt/edit/master/README.rst) | [Documentation](https://sstudentt.readthedocs.io/en/latest/)
+
 ### Data Driven Identification of Power Plant Operation States Using Clustering
 
 This is in a very early stage and was presented at a PHD Workshop in January 2025.
@@ -18,7 +36,7 @@ Paper: [Pre-Print](https://arxiv.org/abs/2501.15856)
 
 Presentations: [2024 ISF](../static/slides/24_07_isf) | [2024 useR!](../static/slides/24_07_user) 
 
-### Online Distributional Regression, 2024, Simon Hirsch, Jonathan Berrisch, Florian Ziel
+### Online Distributional Regression, 2025, Simon Hirsch, Jonathan Berrisch, Florian Ziel
 
 We present a methodology for online estimation of regularized, linear distributional models. The proposed algorithm is based on a combination of recent developments for the online estimation of LASSO models and the well-known GAMLSS framework. We provide a case study on day-ahead electricity price forecasting, in which we show the competitive performance of the incremental estimation combined with strongly reduced computational effort. Our algorithms are implemented in a computationally efficient Python package. 
 
@@ -66,37 +84,6 @@ Presentations: [2021 Causal Inference Group, France](../static/slides/21_05_fran
 This paper presents price forecasting studies for two essential European natural-gas products.
 
 Paper: [Journal of Forecasting](https://doi.org/10.1002/for.2853) | [Pre-Print](https://arxiv.org/abs/2010.06227) 
-
-# Projects
-
-## profoc - An R Package for Probabilistic Forecast Combination
-
-This package implements methods which are proposed and discussed in [CRPS Learning](https://arxiv.org/abs/2102.00968).
-
-[CRAN](https://cran.rstudio.com/web/packages/profoc/index.html) | [GitHub](https://github.com/BerriJ/profoc) | [Documentation](https://profoc.berrisch.biz/)
-
-## dccpp - An R Package for fast computation of the distance covariance and distance correlation
-
-The computation cost is only O(n log(n)) for the distance correlation (see Chaudhuri, Hu, 2019, arXiv, elsevier). The functions are written entirely in C++ to speed up the computation.
-
-[CRAN](https://cran.r-project.org/web/packages/dccpp/index.html) | [GitHub](https://github.com/BerriJ/dccpp) | [Documentation](https://dccpp.berrisch.biz/)
-
-## sstudentt - A python package implementing the skewed-student-t distribution
-
-This package implements the skewed student-t distribution in python. Parameterized as described in Wurtz et. al (2006) [1]. An implementation in R is already existent [2].
-
-[PyPi](https://pypi.org/project/sstudentt/) | [Github](https://github.com/BerriJ/sstudentt/edit/master/README.rst) | [Documentation](https://sstudentt.readthedocs.io/en/latest/)
-
-# Development
-
-I develop most of my projects in a docker container that is publicly available for reuse and inspiration. This container makes it easy to reproduce results or develop projects like the profoc R package.
-
-The most convenient way to start is using VS-Code. You can find instructions in the [GitHub Repo](https://github.com/BerriJ/devenv/tree/dev). However, the bare-bone Docker Container is also available and sufficient.
-
-The Repository is available on [GitHub](https://github.com/BerriJ/devenv/tree/dev).
-
-The docker container is also available on [GitHub](https://github.com/users/BerriJ/packages/container/devenv/versions)
-
 
 # References
 
