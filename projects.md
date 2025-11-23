@@ -8,7 +8,7 @@ draft = false
 
 This is in a very early stage and was presented at a PHD Workshop in January 2025.
 
-Presentations: [2025_PHD](../slides/25_01_phd)
+Presentations: [2025_PHD](../static/slides/25_01_phd)
 
 ### rcpptimer: Rcpp Tic-Toc Timer with OpenMP Support
 
@@ -16,7 +16,7 @@ We developed 'cpptimer', a straightforward tic-toc timer class for benchmarking 
 
 Paper: [Pre-Print](https://arxiv.org/abs/2501.15856)
 
-Presentations: [2024 ISF](../slides/24_07_isf) | [2024 useR!](../slides/24_07_user) 
+Presentations: [2024 ISF](../static/slides/24_07_isf) | [2024 useR!](../static/slides/24_07_user) 
 
 ### Online Distributional Regression, 2024, Simon Hirsch, Jonathan Berrisch, Florian Ziel
 
@@ -28,7 +28,7 @@ Paper: [Pre-Print](https://arxiv.org/abs/2407.08750)
 
 We apply CRPS Learning to multivariate data. We extend the smoothing methods proposed in the original CRPS Learning paper and we apply the methodology to probabilistic forecasts of multivariate day-ahead electricity prices.
 
-Paper: [Pre-Print](https://doi.org/10.48550/arXiv.2303.10019) | [2023 ECMI](../slides/23_06_ecmi) 
+Paper: [Pre-Print](https://doi.org/10.48550/arXiv.2303.10019) | [2023 ECMI](../static/slides/23_06_ecmi) 
 
 
 ### Modeling volatility and dependence of European carbon and energy prices, 2023, Jonathan Berrisch & Sven Pappert & Antonia Arsova & Florian Ziel
@@ -37,13 +37,13 @@ We developed a VECM-GARCH-COPULA model for EUA, coal, natural gas and oil prices
 
 Paper: [Finance Research Letters](https://doi.org/10.1016/j.frl.2022.103503) | [Pre-Print](https://doi.org/10.48550/arXiv.2208.14311)
 
-Presentations: [Brown-Bag](../slides/23_06_brown_bag) | [ARGE Masterclass](../slides/23_07_arge) 
+Presentations: [Brown-Bag](../static/slides/23_06_brown_bag) | [ARGE Masterclass](../static/slides/23_07_arge) 
 
 ### An Introduction to Rcpp Modules, 2022, Jonathan Berrisch
 
 This is a talk I gave at the UseR! 2022 Conference. It covers the essentials on how to expose C++ classes to R using Rcpp Modules.
 
-Presentations: [UseR!](../slides/22_06_useR)
+Presentations: [UseR!](../static/slides/22_06_useR)
 
 ### High-Resolution Peak Demand Estimation Using Generalized Additive Models and Deep Neural Networks, 2022, Jonathan Berrisch & Michal Narajewski & Florian Ziel
 
@@ -51,7 +51,7 @@ This paper presents a method for estimating high-resolution electricity peak dem
 
 Paper: [Energy and AI](https://doi.org/10.1016/j.egyai.2023.100236) | [Pre-Print](https://arxiv.org/abs/2203.03342)
 
-Presentations: [Brown-Bag](../slides/22_05_brown_bag) | [2022 ISF](../slides/22_07_isf) | [2023 INREC](../slides/23_09_inrec) | [2023 Statistische Woche](../slides/23_09_stat_woche) 
+Presentations: [Brown-Bag](../static/slides/22_05_brown_bag) | [2022 ISF](../static/slides/22_07_isf) | [2023 INREC](../static/slides/23_09_inrec) | [2023 Statistische Woche](../static/slides/23_09_stat_woche) 
 
 ### CRPS Learning, 2021, Jonathan Berrisch & Florian Ziel, Journal of Econometrics
 
@@ -59,7 +59,7 @@ This paper treats how online learning algorithms can be used for the pointwise c
 
 Paper: [Journal of Econometrics](https://doi.org/10.1016/j.jeconom.2021.11.008) | [Pre-Print](https://arxiv.org/abs/2102.00968)
 
-Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [2021 ISF](../slides/21_06_isf) | [2021 EPF Group](../slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../slides/22_02_rgs) [2022 ICCF](../slides/22_06_iccf)
+Presentations: [2021 Causal Inference Group, France](../static/slides/21_05_france) | [2021 ISF](../static/slides/21_06_isf) | [2021 EPF Group](../static/slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../static/slides/22_02_rgs) [2022 ICCF](../static/slides/22_06_iccf)
 
 ### Distributional modeling and forecasting of natural gas prices, 2021, Jonathan Berrisch & Florian Ziel
 
