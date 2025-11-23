@@ -11,7 +11,7 @@ const headerHTML = `
           <span class="header-label">Projects</span>
           <i data-lucide="folder-open"></i>
         </a>
-        <a href="cv/index.html" title="CV">
+        <a href="cv.html" title="CV">
           <span class="header-label">CV</span>
           <i data-lucide="file-text"></i>
         </a>

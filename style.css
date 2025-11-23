@@ -252,12 +252,15 @@ body {
 /* CV iframe */
 .cv-container {
   width: 100%;
-  min-height: calc(100vh - 200px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .cv-container iframe {
   width: 100%;
-  height: calc(100vh - 150px);
+  height: 100%;
+  flex: 1;
   border: none;
 }
 
