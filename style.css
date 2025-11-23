@@ -155,7 +155,7 @@ body {
   opacity: 0;
   max-width: 0;
   overflow: hidden;
-  transition: opacity 0.3s, max-width 0.3s;
+  transition: opacity 0.6s, max-width 0.6s;
   font-weight: 500;
   white-space: nowrap;
 }
@@ -261,6 +261,71 @@ body {
   border: none;
 }
 
+/* Header */
+header {
+  background-color: var(--secondary-bg);
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header .container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  max-width: 100%;
+  padding: 0 2rem;
+}
+
+.header-links {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.5rem;
+}
+
+.header-links a {
+  color: var(--primary-color);
+  transition: color 0.3s;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  position: relative;
+}
+
+.header-links a:hover {
+  color: var(--link-color);
+}
+
+.header-links a i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-label {
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.6s, max-width 0.6s;
+  font-weight: 500;
+  white-space: nowrap;
+  font-size: 1rem;
+}
+
+.header-links a:hover .header-label {
+  opacity: 1;
+  max-width: 150px;
+}
+
+.header-links.initial-show .header-label {
+  opacity: 1;
+  max-width: 150px;
+}
+
 /* Footer */
 footer {
   background-color: var(--secondary-bg);
@@ -329,17 +394,20 @@ footer a:hover {
     font-size: 1.5rem;
   }
 }
+
 /* Academic Figure Styles */
 .academic-content {
-  min-height: 80vh;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem 0;
+  padding: 2rem 0;
 }
 
 .academic-content .container {
   max-width: 900px;
+  display: flex;
+  align-items: center;
 }
 
 .academic-figure {
@@ -414,7 +482,7 @@ footer a:hover {
     padding: 1rem;
     font-size: 0.9rem;
   }
-  
+
   .academic-content {
     padding: 2rem 0;
   }
