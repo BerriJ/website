@@ -1,8 +1,30 @@
-+++
-title = "Research"
-date = "2021-05-27"
-draft = false
-+++
+
+## Projects
+
+Most of my projects are open-source and can be found on CRAN, [PyPi](https://pypi.org/search/?q=BerriJ), [GitHub](https://github.com/BerriJ) or my [personal GiTea instance](https://git.0n8.de/BerriJ) which is a project in itself. Below you find a non-exhaustive collection.
+
+### OnlyQR - SVG QR Code Generator
+
+A simplified, SVG-only QR code generator based on QRCode.js. This lightweight library generates clean, scalable SVG QR.
+
+[https://onlyqr.0n8.de/](https://onlyqr.0n8.de/) | [Source](https://git.0n8.de/BerriJ/onlyqr)
+
+### ENTSO-E API Python Package
+
+A Python library for accessing ENTSO-E Transparency Platform API endpoints.
+
+[docs](https://entsoe-apy.berrisch.biz/) | [PyPi](https://pypi.org/project/entsoe-apy/) | [GitHub](https://github.com/BerriJ/entsoe-apy)
+
+
+### rcpptimer - Rcpp Tic-Toc Timer with OpenMP Support
+
+We developed 'cpptimer', a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, 'cpptimer' supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times. Being a header-only library, 'cpptimer' is easily bindable to higher-level languages.
+
+[docs](https://rcpptimer.berrisch.biz/) | [GitHub](https://github.com/BerriJ/rcpptimer) | [CRAN](https://cran.r-project.org/web/packages/rcpptimer/index.html) | [Paper](https://arxiv.org/abs/2501.15856)
+
+### ondil - A python package for online distributional learning
+
+[docs](https://simon-hirsch.github.io/ondil/) | [GitHub](https://github.com/simon-hirsch/ondil) | [PyPi](https://pypi.org/project/ondil/) | [Paper](https://arxiv.org/abs/2407.08750)
 
 ### profoc - An R Package for Probabilistic Forecast Combination
 
@@ -22,71 +44,8 @@ This package implements the skewed student-t distribution in python. Parameteriz
 
 [PyPi](https://pypi.org/project/sstudentt/) | [Github](https://github.com/BerriJ/sstudentt/edit/master/README.rst) | [Documentation](https://sstudentt.readthedocs.io/en/latest/)
 
-### Data Driven Identification of Power Plant Operation States Using Clustering
+## References
 
-This is in a very early stage and was presented at a PHD Workshop in January 2025.
+[1] Wurtz, Y. Chalabi, and L. Luksan. Parameter estimation of arma models with garch/aparch errors. an r and splus software implementation. Journal of Statistical Software, 2006.
 
-Presentations: [2025_PHD](../slides/25_01_phd)
-
-### rcpptimer: Rcpp Tic-Toc Timer with OpenMP Support
-
-We developed 'cpptimer', a straightforward tic-toc timer class for benchmarking C++ code to address this. Unlike existing solutions, 'cpptimer' supports overlapping timers and OpenMP parallelism. It also calculates summary statistics when benchmarking the same code segment multiple times. Being a header-only library, 'cpptimer' is easily bindable to higher-level languages.
-
-Paper: [Pre-Print](https://arxiv.org/abs/2501.15856)
-
-Presentations: [2024 ISF](../slides/24_07_isf) | [2024 useR!](../slides/24_07_user) 
-
-### Online Distributional Regression, 2025, Simon Hirsch, Jonathan Berrisch, Florian Ziel
-
-We present a methodology for online estimation of regularized, linear distributional models. The proposed algorithm is based on a combination of recent developments for the online estimation of LASSO models and the well-known GAMLSS framework. We provide a case study on day-ahead electricity price forecasting, in which we show the competitive performance of the incremental estimation combined with strongly reduced computational effort. Our algorithms are implemented in a computationally efficient Python package. 
-
-Paper: [Pre-Print](https://arxiv.org/abs/2407.08750)
-
-### Multivariate Probabilistic CRPS Learning with an Application to Day-Ahead Electricity Prices, 2023, Jonathan Berrisch & Florian Ziel
-
-We apply CRPS Learning to multivariate data. We extend the smoothing methods proposed in the original CRPS Learning paper and we apply the methodology to probabilistic forecasts of multivariate day-ahead electricity prices.
-
-Paper: [Pre-Print](https://doi.org/10.48550/arXiv.2303.10019) | [2023 ECMI](../slides/23_06_ecmi) 
-
-
-### Modeling volatility and dependence of European carbon and energy prices, 2023, Jonathan Berrisch & Sven Pappert & Antonia Arsova & Florian Ziel
-
-We developed a VECM-GARCH-COPULA model for EUA, coal, natural gas and oil prices. We use maximum likelihood to estimate the model parameters and forecast the prices in a one-step process.
-
-Paper: [Finance Research Letters](https://doi.org/10.1016/j.frl.2022.103503) | [Pre-Print](https://doi.org/10.48550/arXiv.2208.14311)
-
-Presentations: [Brown-Bag](../slides/23_06_brown_bag) | [ARGE Masterclass](../slides/23_07_arge) 
-
-### An Introduction to Rcpp Modules, 2022, Jonathan Berrisch
-
-This is a talk I gave at the UseR! 2022 Conference. It covers the essentials on how to expose C++ classes to R using Rcpp Modules.
-
-Presentations: [UseR!](../slides/22_06_useR)
-
-### High-Resolution Peak Demand Estimation Using Generalized Additive Models and Deep Neural Networks, 2022, Jonathan Berrisch & Michal Narajewski & Florian Ziel
-
-This paper presents a method for estimating high-resolution electricity peak demand given lower resolution data.
-
-Paper: [Energy and AI](https://doi.org/10.1016/j.egyai.2023.100236) | [Pre-Print](https://arxiv.org/abs/2203.03342)
-
-Presentations: [Brown-Bag](../slides/22_05_brown_bag) | [2022 ISF](../slides/22_07_isf) | [2023 INREC](../slides/23_09_inrec) | [2023 Statistische Woche](../slides/23_09_stat_woche) 
-
-### CRPS Learning, 2021, Jonathan Berrisch & Florian Ziel, Journal of Econometrics
-
-This paper treats how online learning algorithms can be used for the pointwise combination of probabilistic forecasts.
-
-Paper: [Journal of Econometrics](https://doi.org/10.1016/j.jeconom.2021.11.008) | [Pre-Print](https://arxiv.org/abs/2102.00968)
-
-Presentations: [2021 Causal Inference Group, France](../slides/21_05_france) | [2021 ISF](../slides/21_06_isf) | [2021 EPF Group](../slides/21_11_epf) | [2022 15TH RGS Doctoral Conference](../slides/22_02_rgs) [2022 ICCF](../slides/22_06_iccf)
-
-### Distributional modeling and forecasting of natural gas prices, 2021, Jonathan Berrisch & Florian Ziel
-
-This paper presents price forecasting studies for two essential European natural-gas products.
-
-Paper: [Journal of Forecasting](https://doi.org/10.1002/for.2853) | [Pre-Print](https://arxiv.org/abs/2010.06227) 
-
-# References
-
-.. [1] Wurtz, Y. Chalabi, and L. Luksan. Parameter estimation of arma models with garch/aparch errors. an r and splus software implementation. Journal of Statistical Software, 2006.
-
-.. [2] R Implementation: https://www.gamlss.com/wp-content/uploads/2018/01/DistributionsForModellingLocationScaleandShape.pdf
+[2] R Implementation: https://www.gamlss.com/wp-content/uploads/2018/01/DistributionsForModellingLocationScaleandShape.pdf

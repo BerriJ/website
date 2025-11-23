@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jonathan Berrisch - Publications">
+  <title>Publications - Jonathan Berrisch</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Marked.js for Markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+  <main class="content">
+    <div class="container" id="markdown-content">
+      <!-- Content will be loaded here -->
+    </div>
+  </main>
+
+  <script src="header.js"></script>
+  <script src="footer.js"></script>
+  <script>
+    // Fetch and render the markdown file
+    async function loadMarkdown() {
+      try {
+        const response = await fetch('./publications.md');
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const markdown = await response.text();
+
+        // Remove the frontmatter (everything between +++ markers)
+        const cleanedMarkdown = markdown.replace(/^\+\+\+[\s\S]*?\+\+\+\n*/, '');
+
+        // Configure marked to open external links in new tabs
+        const renderer = new marked.Renderer();
+        const originalLinkRenderer = renderer.link;
+
+        renderer.link = function (href, title, text) {
+          const html = originalLinkRenderer.call(this, href, title, text);
+          const hrefStr = String(href || '');
+          const isExternal = hrefStr.startsWith('http') || hrefStr.startsWith('//');
+
+          if (isExternal) {
+            return html.replace('<a', '<a target="_blank" rel="noopener"');
+          }
+          return html;
+        };
+
+        marked.setOptions({ renderer: renderer });
+
+        // Convert markdown to HTML
+        document.getElementById('markdown-content').innerHTML = marked.parse(cleanedMarkdown);
+      } catch (error) {
+        console.error('Error loading markdown:', error);
+        document.getElementById('markdown-content').innerHTML =
+          '<h1>Error loading content</h1>' +
+          '<p>This page needs to be served from a web server. Please run:</p>' +
+          '<pre style="background: #f4f4f4; padding: 1rem; border-radius: 4px;">python -m http.server 8000</pre>' +
+          '<p>Then open <a href="http://localhost:8000/publications.html">http://localhost:8000/publications.html</a></p>' +
+          '<p>Error details: ' + error.message + '</p>';
+      }
+    }
+
+    // Load markdown when page is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', loadMarkdown);
+    } else {
+      loadMarkdown();
+    }
+  </script>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>

@@ -7,9 +7,17 @@ const headerHTML = `
           <span class="header-label">About</span>
           <i data-lucide="home"></i>
         </a>
+        <a href="talks.html" title="Talks">
+          <span class="header-label">Talks</span>
+          <i data-lucide="presentation"></i>
+        </a>
         <a href="projects.html" title="Projects">
           <span class="header-label">Projects</span>
           <i data-lucide="folder-open"></i>
+        </a>
+        <a href="publications.html" title="Publications">
+          <span class="header-label">Publications</span>
+          <i data-lucide="book-open"></i>
         </a>
         <a href="cv.html" title="CV">
           <span class="header-label">CV</span>
