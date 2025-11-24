@@ -13,7 +13,7 @@ const headerHTML = `
         </a>
         <a href="projects.html" title="Projects">
           <span class="header-label">Projects</span>
-          <i data-lucide="code"></i>
+          <i data-lucide="folder-open"></i>
         </a>
         <a href="publications.html" title="Publications">
           <span class="header-label">Publications</span>
