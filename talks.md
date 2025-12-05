@@ -3,8 +3,11 @@
 
 ### 2025
 
+#### 2025-12-09 | [ENTSO-E API Python Package](../slides/25_12_RenEU)
+
+
 #### 2025-06-30 | [Data Science Methods for Forecasting in Energy and Economics](https://defense.berrisch.biz/#/title-slide)
-My PhD Defense, House of Energy, Climate and Finance, University of Duisburg-Essen • Essen, Germany
+E-TREND Joint Workshop on Postprocessing, Forecasting and Nowcasting for Renewable Energy (RenEUCast) • Brussels, Belgium
 
 #### 2024-07-11 | [Data Driven Identification of Power Plant Operation States Using Clustering](../slides/24_07_user)
 PhD Seminar, House of Energy, Climate and Finance • Essen, Germany
