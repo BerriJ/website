@@ -3,7 +3,7 @@
 
 ### 2026
 
-#### 2026-01-22 | [Modeling Volatility and Dependence of European Carbon and Energy Prices](../slides/26_01_brown_bag)
+#### 2026-01-22 | [ENTSOE-APY Python Packages](../slides/26_01_brown_bag)
 Brown Bag Seminar, House of Energy, Climate & Finance • Essen, Germany
 
 ### 2025
